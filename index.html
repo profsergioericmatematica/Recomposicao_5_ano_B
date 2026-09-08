@@ -1,371 +1,77 @@
 <!DOCTYPE html>
-<html lang="pt-BR"> 
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quadro Interativo - Turma B</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <style>
-        * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f4f7fc;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.container {
-    max-width: 1100px;
-    width: 100%;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    padding: 20px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid #0077be;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-
-.header h1 {
-    color: #003366;
-    font-size: 1.6rem;
-}
-
-.block {
-    background: #f8faff;
-    border-left: 6px solid #0077be;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.block h2 {
-    color: #003366;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-}
-
-.block h3 {
-    color: #005a8c;
-    margin-top: 12px;
-    margin-bottom: 6px;
-}
-
-.exemplo-box {
-    background: #eef4fa;
-    padding: 12px;
-    border-radius: 10px;
-    margin: 10px 0;
-    font-size: 1rem;
-}
-
-.btn-revelar {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-    margin: 5px 0;
-    font-size: 0.95rem;
-}
-
-.btn-revelar:hover {
-    background: #218838;
-    transform: scale(1.03);
-}
-
-.resposta {
-    background: #d4edda;
-    padding: 10px 15px;
-    border-radius: 8px;
-    margin-top: 10px;
-    display: none;
-    border-left: 4px solid #28a745;
-    font-weight: 500;
-}
-
-.resposta.visible {
-    display: block;
-}
-
-.svg-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px 0;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    width: 100%;
-    overflow: auto;
-}
-
-.canvas-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin: 15px 0;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    width: 100%;
-    overflow-x: auto;
-}
-
-.canvas-controls {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.canvas-controls button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    background: #007bff;
-    color: white;
-    font-size: 0.9rem;
-    min-height: 44px; /* área de toque confortável */
-}
-
-.canvas-controls button:hover {
-    background: #0056b3;
-}
-
-.canvas-controls button.reset {
-    background: #dc3545;
-}
-
-.canvas-controls button.reset:hover {
-    background: #c82333;
-}
-
-#infoCanvas, #infoQ22, #infoTeoriaPorcA, #infoQ17, #infoQ21, #infoQ13, #infoQ24, #infoLivreA,
-#infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
-    font-size: 18px;
-    font-weight: bold;
-    color: #d9534f;
-    margin-top: 10px;
-    text-align: center;
-}
-
-canvas {
-    border: 1px solid #ccc;
-    background-color: white;
-   
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.tabela-resultados {
-    margin: 15px auto;
-    border-collapse: collapse;
-    width: 90%;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    font-size: 16px;
-}
-
-.tabela-resultados th,
-.tabela-resultados td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.tabela-resultados th {
-    background-color: #007bff;
-    color: white;
-}
-
-.destaque-linha {
-    background-color: #fff3cd !important;
-    font-weight: bold;
-}
-
-/* ===== MEDIA QUERIES ===== */
-
-/* Tablets e telas médias (largura ≤ 768px) */
-@media (max-width: 768px) {
-    body {
-        padding: 8px;
-    }
-
-    .container {
-        padding: 15px;
-    }
-
-    .header h1 {
-        font-size: 1.3rem;
-    }
-
-    .block {
-        padding: 12px;
-    }
-
-    .block h2 {
-        font-size: 1.1rem;
-    }
-
-    .block h3 {
-        font-size: 1rem;
-    }
-
-    .exemplo-box {
-        font-size: 0.95rem;
-        padding: 10px;
-    }
-
-    .btn-revelar {
-        font-size: 0.85rem;
-        padding: 6px 14px;
-    }
-
-    .canvas-controls button {
-        font-size: 0.8rem;
-        padding: 6px 10px;
-        min-height: 40px;
-    }
-
-    #infoCanvas, #infoQ22, #infoTeoriaPorcA, #infoQ17, #infoQ21, #infoQ13, #infoQ24, #infoLivreA,
-    #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
-        font-size: 16px;
-    }
-
-    .tabela-resultados {
-        font-size: 14px;
-        width: 100%;
-    }
-
-    .tabela-resultados th,
-    .tabela-resultados td {
-        padding: 6px;
-    }
-
-    /* Ajuste para a grade da pincelada (Turma B) */
-    .pincelada-grid {
-        grid-template-columns: 1fr; /* vira uma coluna */
-        gap: 8px;
-    }
-}
-
-/* Celulares e telas muito pequenas (largura ≤ 480px) */
-@media (max-width: 480px) {
-    .container {
-        padding: 10px;
-        border-radius: 12px;
-    }
-
-    .header h1 {
-        font-size: 1.1rem;
-    }
-
-    .block {
-        padding: 10px;
-        border-left-width: 4px;
-    }
-
-    .block h2 {
-        font-size: 1rem;
-    }
-
-    .block h3 {
-        font-size: 0.9rem;
-    }
-
-    .exemplo-box {
-        font-size: 0.85rem;
-        padding: 8px;
-    }
-
-    .btn-revelar {
-        font-size: 0.75rem;
-        padding: 5px 12px;
-    }
-
-    .canvas-controls button {
-        font-size: 0.7rem;
-        padding: 5px 8px;
-        min-height: 36px;
-        min-width: 60px;
-    }
-
-    .canvas-controls {
-        gap: 4px;
-    }
-
-    #infoCanvas, #infoQ22, #infoTeoriaPorcA, #infoQ17, #infoQ21, #infoQ13, #infoQ24, #infoLivreA,
-    #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
-        font-size: 14px;
-    }
-
-    .tabela-resultados {
-        font-size: 12px;
-    }
-
-    .tabela-resultados th,
-    .tabela-resultados td {
-        padding: 4px;
-    }
-
-    .canvas-container {
-        padding: 8px;
-    }
-}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7fc; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 1100px; width: 100%; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #0077be; padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .header h1 { color: #003366; font-size: 1.6rem; }
+        .block { background: #f8faff; border-left: 6px solid #0077be; padding: 15px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .block h2 { color: #003366; font-size: 1.3rem; margin-bottom: 10px; }
+        .block h3 { color: #005a8c; margin-top: 12px; margin-bottom: 6px; }
+        .exemplo-box { background: #eef4fa; padding: 12px; border-radius: 10px; margin: 10px 0; font-size: 1rem; }
+        .btn-revelar, .btn-dica { border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.2s; margin: 5px 0; font-size: 0.95rem; }
+        .btn-revelar { background: #28a745; color: white; }
+        .btn-revelar:hover { background: #218838; transform: scale(1.03); }
+        .btn-dica { background: #ff9800; color: white; }
+        .btn-dica:hover { background: #e68a00; transform: scale(1.03); }
+        .resposta { background: #d4edda; padding: 10px 15px; border-radius: 8px; margin-top: 10px; display: none; border-left: 4px solid #28a745; font-weight: 500; }
+        .resposta.visible { display: block; }
+        .dica-texto { background: #fff3cd; padding: 10px 15px; border-radius: 8px; margin-top: 8px; border-left: 4px solid #ffc107; display: none; font-size: 0.95rem; color: #003366; }
+        .dica-texto.visible { display: block; }
+        .svg-container { display: flex; justify-content: center; align-items: center; margin: 15px 0; background: #ffffff; border-radius: 12px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); width: 100%; overflow: auto; }
+        .canvas-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 15px 0; background: #ffffff; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); width: 100%; overflow-x: auto; }
+        .canvas-controls { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+        .canvas-controls button { padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; background: #007bff; color: white; font-size: 0.9rem; min-height: 44px; }
+        .canvas-controls button:hover { background: #0056b3; }
+        .canvas-controls button.reset { background: #dc3545; }
+        .canvas-controls button.reset:hover { background: #c82333; }
+        #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
+            font-size: 18px; font-weight: bold; color: #003366; margin-top: 10px; text-align: center;
+        }
+        canvas { border: 1px solid #ccc; background-color: white; max-width: 100%; height: auto; display: block; }
+        .tabela-resultados { margin: 15px auto; border-collapse: collapse; width: 90%; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
+        .tabela-resultados th, .tabela-resultados td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        .tabela-resultados th { background-color: #007bff; color: white; }
+        .destaque-linha { background-color: #fff3cd !important; font-weight: bold; }
+        .pincelada-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        @media (max-width: 768px) { body { padding: 8px; } .container { padding: 15px; } .header h1 { font-size: 1.3rem; } .block { padding: 12px; } .block h2 { font-size: 1.1rem; } .block h3 { font-size: 1rem; } .exemplo-box { font-size: 0.95rem; padding: 10px; } .btn-revelar, .btn-dica { font-size: 0.85rem; padding: 6px 14px; } .canvas-controls button { font-size: 0.8rem; padding: 6px 10px; min-height: 40px; } #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB { font-size: 16px; } .tabela-resultados { font-size: 14px; width: 100%; } .tabela-resultados th, .tabela-resultados td { padding: 6px; } .pincelada-grid { grid-template-columns: 1fr; gap: 8px; } }
+        @media (max-width: 480px) { .container { padding: 10px; border-radius: 12px; } .header h1 { font-size: 1.1rem; } .block { padding: 10px; border-left-width: 4px; } .block h2 { font-size: 1rem; } .block h3 { font-size: 0.9rem; } .exemplo-box { font-size: 0.85rem; padding: 8px; } .btn-revelar, .btn-dica { font-size: 0.75rem; padding: 5px 12px; } .canvas-controls button { font-size: 0.7rem; padding: 5px 8px; min-height: 36px; min-width: 60px; } .canvas-controls { gap: 4px; } #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB { font-size: 14px; } .tabela-resultados { font-size: 12px; } .tabela-resultados th, .tabela-resultados td { padding: 4px; } .canvas-container { padding: 8px; } }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <h1>📐 Quadro Interativo - Turma B</h1>
-    </div>
+    <div class="header"><h1>📐 Quadro Interativo - Turma B</h1></div>
 
+    <!-- BLOCO 1 -->
     <div class="block">
         <h2>📏 Bloco 1 – Perímetro, Escala e Conversão</h2>
+
         <h3>1. Perímetro na Malha (Q20)</h3>
         <p>Conte os lados externos (cada quadradinho = 1 cm).</p>
         <div class="exemplo-box">
             <strong>Figura (irregular):</strong>
-            <button class="btn-revelar" onclick="toggleResposta(this)">Revelar</button>
+            <button class="btn-revelar" aria-label="Mostrar animação da malha" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+            <div class="dica-texto">Conte os risquinhos externos da figura. Cada lado do quadradinho = 1 cm.</div>
             <div class="resposta">
                 <div class="canvas-container">
                     <canvas id="meuCanvasB" width="540" height="290"></canvas>
                     <div class="canvas-controls">
-                        <button onclick="selecionarFiguraB('A')">Figura A</button>
-                        <button onclick="selecionarFiguraB('B')">Figura B</button>
-                        <button onclick="selecionarFiguraB('C')">Figura C</button>
-                        <button onclick="selecionarFiguraB('D')">Figura D</button>
+                        <button onclick="selecionarFiguraB('A')" aria-label="Figura A">Figura A</button>
+                        <button onclick="selecionarFiguraB('B')" aria-label="Figura B">Figura B</button>
+                        <button onclick="selecionarFiguraB('C')" aria-label="Figura C">Figura C</button>
+                        <button onclick="selecionarFiguraB('D')" aria-label="Figura D">Figura D</button>
                     </div>
                     <div class="canvas-controls">
-                        <button onclick="iniciarPerimetroB()">Contar Contorno</button>
-                        <button onclick="iniciarAreaB()">Contar Área</button>
-                        <button class="reset" onclick="resetarCanvasB()">Reiniciar Tudo</button>
+                        <button onclick="iniciarPerimetroB()" aria-label="Contar contorno">Contar Contorno</button>
+                        <button onclick="iniciarAreaB()" aria-label="Contar área">Contar Área</button>
+                        <button class="reset" onclick="resetarCanvasB()" aria-label="Reiniciar tudo">Reiniciar Tudo</button>
                     </div>
                     <div id="infoCanvasB">Clique em uma figura</div>
                 </div>
@@ -384,7 +90,9 @@ canvas {
         <h3>2. Estimativa de Altura (Q12)</h3>
         <div class="exemplo-box">
             <strong>Entre 100 cm e 200 cm:</strong>
-            <button class="btn-revelar" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-revelar" aria-label="Mostrar animação da altura" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+            <div class="dica-texto">Use o ponto médio: some os valores e divida por 2.</div>
             <div class="resposta">
                 <div class="svg-container">
                     <svg viewBox="0 0 200 250" width="200" height="250">
@@ -392,13 +100,13 @@ canvas {
                         <line x1="80" y1="20" x2="110" y2="20" stroke="#333" stroke-width="2" />
                         <line x1="80" y1="220" x2="110" y2="220" stroke="#333" stroke-width="2" />
                         <line x1="80" y1="120" x2="110" y2="120" stroke="#333" stroke-width="2" stroke-dasharray="4,4" />
-                        <text x="130" y="25" font-size="14">200 cm</text>
-                        <text x="130" y="125" font-size="14">150 cm</text>
-                        <text x="130" y="225" font-size="14">100 cm</text>
+                        <text x="130" y="25" font-size="14" fill="#000">200 cm</text>
+                        <text x="130" y="125" font-size="14" fill="#000">150 cm</text>
+                        <text x="130" y="225" font-size="14" fill="#000">100 cm</text>
                         <circle cx="95" cy="120" r="8" fill="#ff5722">
                             <animate attributeName="cy" from="20" to="120" dur="1.5s" fill="freeze" />
                         </circle>
-                        <text x="40" y="125" font-size="16" fill="#d32f2f" font-weight="bold" opacity="0">150 cm<animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.5s" fill="freeze" /></text>
+                        <text x="40" y="125" font-size="16" fill="#003366" font-weight="bold" opacity="0">150 cm<animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.5s" fill="freeze" /></text>
                     </svg>
                 </div>
                 \((200 + 100) \div 2 = \mathbf{150 \text{ cm}}\)
@@ -408,13 +116,15 @@ canvas {
         <h3>3. Conversão cm → mm (Q22)</h3>
         <div class="exemplo-box">
             <strong>4,5 cm em mm:</strong>
-            <button class="btn-revelar" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-revelar" aria-label="Mostrar animação da lupa" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+            <div class="dica-texto">1 cm = 10 mm. Para converter cm para mm, multiplique por 10.</div>
             <div class="resposta">
                 <div class="canvas-container">
                     <canvas id="canvasQ22B" width="500" height="220"></canvas>
                     <div class="canvas-controls">
-                        <button onclick="animarLupaQ22B()">Animação da Lupa</button>
-                        <button class="reset" onclick="resetarLupaQ22B()">Reiniciar</button>
+                        <button onclick="animarLupaQ22B()" aria-label="Animação da lupa">Animação da Lupa</button>
+                        <button class="reset" onclick="resetarLupaQ22B()" aria-label="Reiniciar">Reiniciar</button>
                     </div>
                     <div id="infoQ22B">Clique em "Animação"</div>
                 </div>
@@ -422,18 +132,22 @@ canvas {
         </div>
     </div>
 
+    <!-- BLOCO 2 -->
     <div class="block">
         <h2>🧮 Bloco 2 – Geometria do Quadrado e Porcentagem</h2>
+
         <h3>1. Propriedades do Quadrado (Q21)</h3>
         <div class="exemplo-box">
             <strong>Figura que satisfaz isso:</strong>
-            <button class="btn-revelar" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-revelar" aria-label="Mostrar animação do quadrado" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+            <div class="dica-texto">Quadrado tem 4 lados iguais e 4 ângulos retos.</div>
             <div class="resposta">
                 <div class="canvas-container">
                     <canvas id="canvasQ21B" width="250" height="250"></canvas>
                     <div class="canvas-controls">
-                        <button onclick="girarQuadradoQ21('B')">▶ Girar 45°</button>
-                        <button class="reset" onclick="resetarQuadradoQ21('B')">Reiniciar</button>
+                        <button onclick="girarQuadradoQ21('B')" aria-label="Girar 45 graus">▶ Girar 45°</button>
+                        <button class="reset" onclick="resetarQuadradoQ21('B')" aria-label="Reiniciar">Reiniciar</button>
                     </div>
                     <div id="infoQ21B">Clique em "Girar"</div>
                 </div>
@@ -443,15 +157,17 @@ canvas {
         <h3>2. Porcentagem (10%, 25%, 50%)</h3>
         <div class="exemplo-box">
             <strong>Teoria das Porcentagens:</strong>
-            <button class="btn-revelar" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-revelar" aria-label="Mostrar animação de porcentagem" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+            <div class="dica-texto">10% = 1/10, 25% = 1/4, 50% = 1/2. Para calcular: divida por 10, 4 ou 2.</div>
             <div class="resposta">
                 <div class="canvas-container">
                     <canvas id="canvasTeoriaPorcB" width="500" height="200"></canvas>
                     <div class="canvas-controls">
-                        <button onclick="animarTeoriaPorc('B', 10)">10%</button>
-                        <button onclick="animarTeoriaPorc('B', 25)">25%</button>
-                        <button onclick="animarTeoriaPorc('B', 50)">50%</button>
-                        <button class="reset" onclick="resetarTeoriaPorc('B')">Reiniciar</button>
+                        <button onclick="animarTeoriaPorc('B', 10)" aria-label="10 por cento">10%</button>
+                        <button onclick="animarTeoriaPorc('B', 25)" aria-label="25 por cento">25%</button>
+                        <button onclick="animarTeoriaPorc('B', 50)" aria-label="50 por cento">50%</button>
+                        <button class="reset" onclick="resetarTeoriaPorc('B')" aria-label="Reiniciar">Reiniciar</button>
                     </div>
                     <div id="infoTeoriaPorcB">Clique em uma porcentagem</div>
                 </div>
@@ -459,22 +175,25 @@ canvas {
         </div>
     </div>
 
+    <!-- PINCELADA RÁPIDA -->
     <div class="block">
         <h2>⚡ Pincelada Rápida – Conteúdos de Atenção</h2>
         <div class="pincelada-grid">
-            <div><strong>Q15 (Retângulo):</strong> <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">P = 50 m</div></div>
-            <div><strong>Q17 (Trapézio):</strong> <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">AB e CD (paralelos)</div></div>
-            <div><strong>Q13 (Divisão):</strong> <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">3045 ÷ 3 = 1015</div></div>
-            <div><strong>Q14 (50%):</strong> <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">789 ÷ 2 = 394,50</div></div>
-            <div><strong>Q8 (Troco):</strong> <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">R$2,00 = 8 moedas de 25</div></div>
-            <div><strong>Q19 (Cilindro):</strong> 
-                <button class="btn-revelar" onclick="toggleResposta(this)">▶ Animação</button>
+            <div><strong>Q15 (Retângulo):</strong> <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">P = 50 m</div></div>
+            <div><strong>Q17 (Trapézio):</strong> <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">AB e CD (paralelos)</div></div>
+            <div><strong>Q13 (Divisão):</strong> <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">3045 ÷ 3 = 1015</div></div>
+            <div><strong>Q14 (50%):</strong> <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">789 ÷ 2 = 394,50</div></div>
+            <div><strong>Q8 (Troco):</strong> <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">R$2,00 = 8 moedas de 25</div></div>
+            <div><strong>Q19 (Cilindro):</strong>
+                <button class="btn-revelar" aria-label="Mostrar animação do cilindro" onclick="toggleResposta(this)">▶ Animação</button>
+                <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+                <div class="dica-texto">Cilindro é formado por 2 círculos + 1 retângulo.</div>
                 <div class="resposta">
                     <div class="canvas-container">
                         <canvas id="canvasQ19" width="500" height="250"></canvas>
                         <div class="canvas-controls">
-                            <button onclick="animarCilindroQ19()">▶ Ver Montagem / Desmontagem</button>
-                            <button class="reset" onclick="resetarCilindroQ19()">Reiniciar</button>
+                            <button onclick="animarCilindroQ19()" aria-label="Ver montagem/desmontagem">▶ Ver Montagem / Desmontagem</button>
+                            <button class="reset" onclick="resetarCilindroQ19()" aria-label="Reiniciar">Reiniciar</button>
                         </div>
                         <div id="infoQ19">Clique para ver o cilindro</div>
                     </div>
@@ -483,37 +202,41 @@ canvas {
         </div>
     </div>
 
+    <!-- TREINO EM DUPLA -->
     <div class="block">
         <h2>✏️ Treino em Dupla (Turma B)</h2>
         <ol>
             <li style="margin-bottom: 15px;">
                 <strong>1. Figura em U (perímetro):</strong>
-                <button class="btn-revelar" onclick="toggleResposta(this)">▶ Animação</button>
+                <button class="btn-revelar" aria-label="Mostrar animação da figura U" onclick="toggleResposta(this)">▶ Animação</button>
+                <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+                <div class="dica-texto">Conte os lados externos da figura. Perímetro = soma de todos os lados.</div>
                 <div class="resposta">
                     <div class="canvas-container">
                         <canvas id="canvasU" width="300" height="240"></canvas>
                         <div class="canvas-controls">
-                            <button onclick="desenharBaseU()">Desenhar U</button>
-                            <button onclick="animarFiguraU()">▶ Contar Perímetro</button>
-                            <button class="reset" onclick="resetarFiguraU()">Reiniciar</button>
+                            <button onclick="desenharBaseU()" aria-label="Desenhar U">Desenhar U</button>
+                            <button onclick="animarFiguraU()" aria-label="Contar perímetro">▶ Contar Perímetro</button>
+                            <button class="reset" onclick="resetarFiguraU()" aria-label="Reiniciar">Reiniciar</button>
                         </div>
                         <div id="infoU">Clique em "Desenhar U"</div>
                     </div>
                 </div>
             </li>
-            <li>Adulto entre 150 cm e 200 cm → <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">175 cm</div></li>
-            <li>3,6 cm em mm → <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">36 mm</div></li>
-            <li>25% de R$ 480,00 → <button class="btn-revelar" onclick="toggleResposta(this)">Ver</button><div class="resposta">R$ 120,00</div></li>
+            <li>Adulto entre 150 cm e 200 cm → <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">175 cm</div></li>
+            <li>3,6 cm em mm → <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">36 mm</div></li>
+            <li>25% de R$ 480,00 → <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">R$ 120,00</div></li>
         </ol>
     </div>
 
+    <!-- EXTRA -->
     <div class="block">
         <h2>✨ Extra: Malha Interativa Livre (Crie sua Figura)</h2>
         <div class="canvas-container">
             <canvas id="canvasLivreB" width="400" height="250"></canvas>
             <div class="canvas-controls">
-                <button onclick="calcularMalhaLivre('B')">Calcular Área e Perímetro</button>
-                <button class="reset" onclick="limparMalhaLivre('B')">Limpar Tudo</button>
+                <button onclick="calcularMalhaLivre('B')" aria-label="Calcular área e perímetro">Calcular Área e Perímetro</button>
+                <button class="reset" onclick="limparMalhaLivre('B')" aria-label="Limpar tudo">Limpar Tudo</button>
             </div>
             <div id="infoLivreB">Clique nos quadrados para começar a desenhar.</div>
         </div>
@@ -521,13 +244,31 @@ canvas {
 </div>
 
 <script>
-
-    let animacaoQ15B = null;
-let animacaoQ22B = null;
-let animacaoQ20B = null;
-let animacaoU = null;
-    function toggleResposta(button) {
-        const resposta = button.nextElementSibling;
+// =====================================================================
+// 1. FUNÇÕES GERAIS
+// =====================================================================
+function toggleResposta(button) {
+    let resposta = null;
+    // Procura dentro de .exemplo-box
+    const box = button.closest('.exemplo-box');
+    if (box) {
+        resposta = box.querySelector('.resposta');
+    }
+    // Se não achou, procura o próximo irmão
+    if (!resposta) {
+        const next = button.nextElementSibling;
+        if (next && next.classList.contains('resposta')) {
+            resposta = next;
+        }
+    }
+    // Se ainda não achou, procura no pai mais próximo
+    if (!resposta) {
+        const parent = button.parentElement;
+        if (parent) {
+            resposta = parent.querySelector('.resposta');
+        }
+    }
+    if (resposta) {
         if (resposta.classList.contains('visible')) {
             resposta.classList.remove('visible');
             button.textContent = '▶ Animação';
@@ -536,160 +277,227 @@ let animacaoU = null;
             button.textContent = '🔄 Ocultar';
         }
     }
+}
 
-    const escala = 50; const offset = 20;
-    const figurasData = {
-        'A': { squares: [{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:0,y:1},{x:1,y:1},{x:2,y:1},{x:3,y:1},{x:4,y:1},{x:0,y:2},{x:1,y:2},{x:2,y:2}],
-               passos: [{num:1,x1:0,y1:0,x2:1,y2:0},{num:2,x1:1,y1:0,x2:2,y2:0},{num:3,x1:2,y1:0,x2:3,y2:0},{num:4,x1:3,y1:0,x2:3,y2:1},{num:5,x1:3,y1:1,x2:4,y2:1},{num:6,x1:4,y1:1,x2:5,y2:1},{num:7,x1:5,y1:1,x2:5,y2:2},{num:8,x1:5,y1:2,x2:4,y2:2},{num:9,x1:4,y1:2,x2:3,y2:2},{num:10,x1:3,y1:2,x2:3,y2:3},{num:11,x1:3,y1:3,x2:2,y2:3},{num:12,x1:2,y1:3,x2:1,y2:3},{num:13,x1:1,y1:3,x2:0,y2:3},{num:14,x1:0,y1:3,x2:0,y2:2},{num:15,x1:0,y1:2,x2:0,y2:1},{num:16,x1:0,y1:1,x2:0,y2:0}]},
-        'B': { squares: [{x:3,y:0},{x:4,y:0},{x:5,y:0},{x:6,y:0},{x:7,y:0},{x:8,y:0},{x:9,y:0},{x:5,y:1},{x:6,y:1},{x:7,y:1},{x:8,y:1},{x:9,y:1}],
-               passos: [{num:1,x1:3,y1:0,x2:4,y2:0},{num:2,x1:4,y1:0,x2:5,y2:0},{num:3,x1:5,y1:0,x2:6,y2:0},{num:4,x1:6,y1:0,x2:7,y2:0},{num:5,x1:7,y1:0,x2:8,y2:0},{num:6,x1:8,y1:0,x2:9,y2:0},{num:7,x1:9,y1:0,x2:10,y2:0},{num:8,x1:10,y1:0,x2:10,y2:1},{num:9,x1:10,y1:1,x2:10,y2:2},{num:10,x1:10,y1:2,x2:9,y2:2},{num:11,x1:9,y1:2,x2:8,y2:2},{num:12,x1:8,y1:2,x2:7,y2:2},{num:13,x1:7,y1:2,x2:6,y2:2},{num:14,x1:6,y1:2,x2:5,y2:2},{num:15,x1:5,y1:2,x2:5,y2:1},{num:16,x1:5,y1:1,x2:4,y2:1},{num:17,x1:4,y1:1,x2:3,y2:1},{num:18,x1:3,y1:1,x2:3,y2:0}]},
-        'C': { squares: [{x:3,y:2},{x:4,y:2},{x:5,y:2},{x:0,y:3},{x:1,y:3},{x:2,y:3},{x:3,y:3},{x:4,y:3},{x:5,y:3},{x:0,y:4},{x:1,y:4},{x:2,y:4},{x:3,y:4},{x:4,y:4},{x:5,y:4}],
-               passos: [{num:1,x1:0,y1:3,x2:0,y2:4},{num:2,x1:0,y1:4,x2:0,y2:5},{num:3,x1:0,y1:5,x2:1,y2:5},{num:4,x1:1,y1:5,x2:2,y2:5},{num:5,x1:2,y1:5,x2:3,y2:5},{num:6,x1:3,y1:5,x2:4,y2:5},{num:7,x1:4,y1:5,x2:5,y2:5},{num:8,x1:5,y1:5,x2:6,y2:5},{num:9,x1:6,y1:5,x2:6,y2:4},{num:10,x1:6,y1:4,x2:6,y2:3},{num:11,x1:6,y1:3,x2:6,y2:2},{num:12,x1:6,y1:2,x2:5,y2:2},{num:13,x1:5,y1:2,x2:4,y2:2},{num:14,x1:4,y1:2,x2:3,y2:2},{num:15,x1:3,y1:2,x2:3,y2:3},{num:16,x1:3,y1:3,x2:2,y2:3},{num:17,x1:2,y1:3,x2:1,y2:3},{num:18,x1:1,y1:3,x2:0,y2:3}]},
-        'D': { squares: [{x:6,y:2},{x:7,y:2},{x:8,y:2},{x:9,y:2},{x:6,y:3},{x:7,y:3},{x:8,y:3},{x:9,y:3},{x:6,y:4},{x:7,y:4},{x:8,y:4},{x:9,y:4}],
-               passos: [{num:1,x1:6,y1:2,x2:7,y2:2},{num:2,x1:7,y1:2,x2:8,y2:2},{num:3,x1:8,y1:2,x2:9,y2:2},{num:4,x1:9,y1:2,x2:10,y2:2},{num:5,x1:10,y1:2,x2:10,y2:3},{num:6,x1:10,y1:3,x2:10,y2:4},{num:7,x1:10,y1:4,x2:10,y2:5},{num:8,x1:10,y1:5,x2:9,y2:5},{num:9,x1:9,y1:5,x2:8,y2:5},{num:10,x1:8,y1:5,x2:7,y2:5},{num:11,x1:7,y1:5,x2:6,y2:5},{num:12,x1:6,y1:5,x2:6,y2:4},{num:13,x1:6,y1:4,x2:6,y2:3},{num:14,x1:6,y1:3,x2:6,y2:2}]}
-    };
-
-    const estadoB = { figuraAtual: null };
-    const canvasB = document.getElementById('meuCanvasB');
-    const ctxB = canvasB.getContext('2d');
-
-    function desenharBase(ctx, estado) {
-        ctx.clearRect(0, 0, 540, 290);
-        ctx.fillStyle = '#d3d3d3';
-        ctx.fillRect(offset, offset, 150, 150);
-        ctx.fillRect(offset + 150, offset + 50, 100, 50);
-        ctx.fillRect(offset + 300, offset + 100, 200, 150);
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(offset + 150, offset, 350, 50);
-        ctx.fillRect(offset + 250, offset + 50, 250, 50);
-        ctx.fillRect(offset + 150, offset + 100, 150, 50);
-        ctx.fillRect(offset, offset + 150, 300, 100);
-        ctx.strokeStyle = '#aaa'; ctx.lineWidth = 0.5;      
-        for (let i = 0; i <= 10; i++) { ctx.beginPath(); ctx.moveTo(offset + i * escala, offset); ctx.lineTo(offset + i * escala, offset + 250); ctx.stroke(); }
-        for (let i = 0; i <= 5; i++) { ctx.beginPath(); ctx.moveTo(offset, offset + i * escala); ctx.lineTo(offset + 500, offset + i * escala); ctx.stroke(); }
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
-        ctx.strokeRect(offset, offset, 500, 250);
-        ctx.beginPath(); ctx.moveTo(offset + 150, offset); ctx.lineTo(offset + 150, offset + 50); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(offset + 150, offset + 100); ctx.lineTo(offset + 150, offset + 150); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(offset + 250, offset + 50); ctx.lineTo(offset + 250, offset + 100); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(offset + 300, offset + 100); ctx.lineTo(offset + 300, offset + 250); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(offset + 150, offset + 100); ctx.lineTo(offset + 500, offset + 100); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(offset + 150, offset + 50); ctx.lineTo(offset + 250, offset + 50); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(offset, offset + 150); ctx.lineTo(offset + 150, offset + 150); ctx.stroke();
-        ctx.fillStyle = '#000'; ctx.font = 'bold 24px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText('A', offset + 125, offset + 75); ctx.fillText('B', offset + 325, offset + 50);
-        ctx.fillText('C', offset + 150, offset + 175); ctx.fillText('D', offset + 400, offset + 175);
-        if (estado.figuraAtual) {
-            let data = figurasData[estado.figuraAtual];
-            ctx.strokeStyle = 'red'; ctx.lineWidth = 4;
-            for (let p of data.passos) { ctx.beginPath(); ctx.moveTo(offset + p.x1 * escala, offset + p.y1 * escala); ctx.lineTo(offset + p.x2 * escala, offset + p.y2 * escala); ctx.stroke(); }
+function toggleDica(button) {
+    const dica = button.nextElementSibling;
+    if (dica && dica.classList.contains('dica-texto')) {
+        if (dica.classList.contains('visible')) {
+            dica.classList.remove('visible');
+            button.textContent = '💡 Dica';
+        } else {
+            dica.classList.add('visible');
+            button.textContent = '💡 Ocultar dica';
         }
     }
+}
 
-    function atualizarTabela(figura, tipo, valor) {
-        let idElemento = (tipo === 'perimetro' ? 'perB_' : 'areaB_') + figura;
-        let idLinha = 'linhaB_' + figura;
-        document.getElementById(idElemento).textContent = valor;
-        document.getElementById(idLinha).classList.add('destaque-linha');
+// =====================================================================
+// 2. CONTROLE DE ANIMAÇÕES
+// =====================================================================
+let animacaoQ20B = null;
+let animacaoQ22B = null;
+let animacaoU = null;
+let intervaloCilindro = null;
+let progressoCilindro = 0;
+
+
+// =====================================================================
+// 3. FIGURAS DA MALHA (Q20)
+// =====================================================================
+const escala = 50;
+const offset = 20;
+const figurasData = {
+    'A': {
+        squares: [{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:0,y:1},{x:1,y:1},{x:2,y:1},{x:3,y:1},{x:4,y:1},{x:0,y:2},{x:1,y:2},{x:2,y:2}],
+        passos: [{num:1,x1:0,y1:0,x2:1,y2:0},{num:2,x1:1,y1:0,x2:2,y2:0},{num:3,x1:2,y1:0,x2:3,y2:0},{num:4,x1:3,y1:0,x2:3,y2:1},{num:5,x1:3,y1:1,x2:4,y2:1},{num:6,x1:4,y1:1,x2:5,y2:1},{num:7,x1:5,y1:1,x2:5,y2:2},{num:8,x1:5,y1:2,x2:4,y2:2},{num:9,x1:4,y1:2,x2:3,y2:2},{num:10,x1:3,y1:2,x2:3,y2:3},{num:11,x1:3,y1:3,x2:2,y2:3},{num:12,x1:2,y1:3,x2:1,y2:3},{num:13,x1:1,y1:3,x2:0,y2:3},{num:14,x1:0,y1:3,x2:0,y2:2},{num:15,x1:0,y1:2,x2:0,y2:1},{num:16,x1:0,y1:1,x2:0,y2:0}]
+    },
+    'B': {
+        squares: [{x:3,y:0},{x:4,y:0},{x:5,y:0},{x:6,y:0},{x:7,y:0},{x:8,y:0},{x:9,y:0},{x:5,y:1},{x:6,y:1},{x:7,y:1},{x:8,y:1},{x:9,y:1}],
+        passos: [{num:1,x1:3,y1:0,x2:4,y2:0},{num:2,x1:4,y1:0,x2:5,y2:0},{num:3,x1:5,y1:0,x2:6,y2:0},{num:4,x1:6,y1:0,x2:7,y2:0},{num:5,x1:7,y1:0,x2:8,y2:0},{num:6,x1:8,y1:0,x2:9,y2:0},{num:7,x1:9,y1:0,x2:10,y2:0},{num:8,x1:10,y1:0,x2:10,y2:1},{num:9,x1:10,y1:1,x2:10,y2:2},{num:10,x1:10,y1:2,x2:9,y2:2},{num:11,x1:9,y1:2,x2:8,y2:2},{num:12,x1:8,y1:2,x2:7,y2:2},{num:13,x1:7,y1:2,x2:6,y2:2},{num:14,x1:6,y1:2,x2:5,y2:2},{num:15,x1:5,y1:2,x2:5,y2:1},{num:16,x1:5,y1:1,x2:4,y2:1},{num:17,x1:4,y1:1,x2:3,y2:1},{num:18,x1:3,y1:1,x2:3,y2:0}]
+    },
+    'C': {
+        squares: [{x:3,y:2},{x:4,y:2},{x:5,y:2},{x:0,y:3},{x:1,y:3},{x:2,y:3},{x:3,y:3},{x:4,y:3},{x:5,y:3},{x:0,y:4},{x:1,y:4},{x:2,y:4},{x:3,y:4},{x:4,y:4},{x:5,y:4}],
+        passos: [{num:1,x1:0,y1:3,x2:0,y2:4},{num:2,x1:0,y1:4,x2:0,y2:5},{num:3,x1:0,y1:5,x2:1,y2:5},{num:4,x1:1,y1:5,x2:2,y2:5},{num:5,x1:2,y1:5,x2:3,y2:5},{num:6,x1:3,y1:5,x2:4,y2:5},{num:7,x1:4,y1:5,x2:5,y2:5},{num:8,x1:5,y1:5,x2:6,y2:5},{num:9,x1:6,y1:5,x2:6,y2:4},{num:10,x1:6,y1:4,x2:6,y2:3},{num:11,x1:6,y1:3,x2:6,y2:2},{num:12,x1:6,y1:2,x2:5,y2:2},{num:13,x1:5,y1:2,x2:4,y2:2},{num:14,x1:4,y1:2,x2:3,y2:2},{num:15,x1:3,y1:2,x2:3,y2:3},{num:16,x1:3,y1:3,x2:2,y2:3},{num:17,x1:2,y1:3,x2:1,y2:3},{num:18,x1:1,y1:3,x2:0,y2:3}]
+    },
+    'D': {
+        squares: [{x:6,y:2},{x:7,y:2},{x:8,y:2},{x:9,y:2},{x:6,y:3},{x:7,y:3},{x:8,y:3},{x:9,y:3},{x:6,y:4},{x:7,y:4},{x:8,y:4},{x:9,y:4}],
+        passos: [{num:1,x1:6,y1:2,x2:7,y2:2},{num:2,x1:7,y1:2,x2:8,y2:2},{num:3,x1:8,y1:2,x2:9,y2:2},{num:4,x1:9,y1:2,x2:10,y2:2},{num:5,x1:10,y1:2,x2:10,y2:3},{num:6,x1:10,y1:3,x2:10,y2:4},{num:7,x1:10,y1:4,x2:10,y2:5},{num:8,x1:10,y1:5,x2:9,y2:5},{num:9,x1:9,y1:5,x2:8,y2:5},{num:10,x1:8,y1:5,x2:7,y2:5},{num:11,x1:7,y1:5,x2:6,y2:5},{num:12,x1:6,y1:5,x2:6,y2:4},{num:13,x1:6,y1:4,x2:6,y2:3},{num:14,x1:6,y1:3,x2:6,y2:2}]
     }
+};
 
-    function selecionarFiguraB(figura) {
-        estadoB.figuraAtual = figura;
-        desenharBase(ctxB, estadoB);
-        document.getElementById('infoCanvasB').textContent = `Figura ${figura} selecionada.`;
+const estadoB = { figuraAtual: null };
+const canvasB = document.getElementById('meuCanvasB');
+const ctxB = canvasB.getContext('2d');
+
+function desenharBase(ctx, estado) {
+    ctx.clearRect(0, 0, 540, 290);
+    ctx.fillStyle = '#d3d3d3';
+    ctx.fillRect(offset, offset, 150, 150);
+    ctx.fillRect(offset + 150, offset + 50, 100, 50);
+    ctx.fillRect(offset + 300, offset + 100, 200, 150);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(offset + 150, offset, 350, 50);
+    ctx.fillRect(offset + 250, offset + 50, 250, 50);
+    ctx.fillRect(offset + 150, offset + 100, 150, 50);
+    ctx.fillRect(offset, offset + 150, 300, 100);
+    ctx.strokeStyle = '#aaa'; ctx.lineWidth = 0.5;
+    for (let i = 0; i <= 10; i++) { ctx.beginPath(); ctx.moveTo(offset + i * escala, offset); ctx.lineTo(offset + i * escala, offset + 250); ctx.stroke(); }
+    for (let i = 0; i <= 5; i++) { ctx.beginPath(); ctx.moveTo(offset, offset + i * escala); ctx.lineTo(offset + 500, offset + i * escala); ctx.stroke(); }
+    ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+    ctx.strokeRect(offset, offset, 500, 250);
+    ctx.beginPath(); ctx.moveTo(offset + 150, offset); ctx.lineTo(offset + 150, offset + 50); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(offset + 150, offset + 100); ctx.lineTo(offset + 150, offset + 150); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(offset + 250, offset + 50); ctx.lineTo(offset + 250, offset + 100); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(offset + 300, offset + 100); ctx.lineTo(offset + 300, offset + 250); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(offset + 150, offset + 100); ctx.lineTo(offset + 500, offset + 100); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(offset + 150, offset + 50); ctx.lineTo(offset + 250, offset + 50); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(offset, offset + 150); ctx.lineTo(offset + 150, offset + 150); ctx.stroke();
+    ctx.fillStyle = '#000'; ctx.font = 'bold 24px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('A', offset + 125, offset + 75);
+    ctx.fillText('B', offset + 325, offset + 50);
+    ctx.fillText('C', offset + 150, offset + 175);
+    ctx.fillText('D', offset + 400, offset + 175);
+    if (estado.figuraAtual) {
+        let data = figurasData[estado.figuraAtual];
+        ctx.strokeStyle = '#003366';
+        ctx.lineWidth = 4;
+        for (let p of data.passos) { ctx.beginPath(); ctx.moveTo(offset + p.x1 * escala, offset + p.y1 * escala); ctx.lineTo(offset + p.x2 * escala, offset + p.y2 * escala); ctx.stroke(); }
     }
+}
 
-    function iniciarPerimetroB() {
+function atualizarTabela(figura, tipo, valor) {
+    let idElemento = (tipo === 'perimetro' ? 'perB_' : 'areaB_') + figura;
+    let idLinha = 'linhaB_' + figura;
+    document.getElementById(idElemento).textContent = valor;
+    document.getElementById(idLinha).classList.add('destaque-linha');
+}
 
-if (animacaoQ20B) {
-        clearTimeout(animacaoQ20B);
-        animacaoQ20B = null;
-    }
+function selecionarFiguraB(figura) {
+    estadoB.figuraAtual = figura;
+    desenharBase(ctxB, estadoB);
+    document.getElementById('infoCanvasB').textContent = `Figura ${figura} selecionada.`;
+}
 
-        if (!estadoB.figuraAtual) { document.getElementById('infoCanvasB').textContent = "Selecione uma figura!"; return; }
-        let passos = figurasData[estadoB.figuraAtual].passos; let i = 0;
-        const info = document.getElementById('infoCanvasB');
-        info.textContent = "Contando os lados...";
-        desenharBase(ctxB, estadoB);
-        function animar() {
-            if (i < passos.length) {
-                const p = passos[i];
-                ctxB.strokeStyle = 'blue'; ctxB.lineWidth = 3;
-                ctxB.beginPath(); ctxB.moveTo(offset + p.x1 * escala, offset + p.y1 * escala); ctxB.lineTo(offset + p.x2 * escala, offset + p.y2 * escala); ctxB.stroke();
-                const meioX = offset + ((p.x1 + p.x2) / 2) * escala; const meioY = offset + ((p.y1 + p.y2) / 2) * escala;
-                ctxB.fillStyle = 'blue'; ctxB.font = 'bold 18px Arial'; ctxB.textAlign = 'center'; ctxB.textBaseline = 'middle';
-                ctxB.fillText(p.num, meioX, meioY);
-                info.textContent = `Figura ${estadoB.figuraAtual}: Lado ${p.num}`;
-                i++; setTimeout(animar, 400); 
-            } else {
-                info.textContent = `Perímetro total da Figura ${estadoB.figuraAtual}: ${passos.length} lados!`;
-                atualizarTabela(estadoB.figuraAtual, 'perimetro', passos.length);
-            }
+function iniciarPerimetroB() {
+    if (animacaoQ20B) { clearTimeout(animacaoQ20B); animacaoQ20B = null; }
+    if (!estadoB.figuraAtual) { document.getElementById('infoCanvasB').textContent = "Selecione uma figura!"; return; }
+    let passos = figurasData[estadoB.figuraAtual].passos;
+    let i = 0;
+    const info = document.getElementById('infoCanvasB');
+    info.textContent = "Contando os lados...";
+    desenharBase(ctxB, estadoB);
+    function animar() {
+        if (i < passos.length) {
+            const p = passos[i];
+            ctxB.strokeStyle = '#003366';
+            ctxB.lineWidth = 3;
+            ctxB.beginPath();
+            ctxB.moveTo(offset + p.x1 * escala, offset + p.y1 * escala);
+            ctxB.lineTo(offset + p.x2 * escala, offset + p.y2 * escala);
+            ctxB.stroke();
+            const meioX = offset + ((p.x1 + p.x2) / 2) * escala;
+            const meioY = offset + ((p.y1 + p.y2) / 2) * escala;
+            ctxB.fillStyle = '#003366';
+            ctxB.font = 'bold 18px Arial';
+            ctxB.textAlign = 'center';
+            ctxB.textBaseline = 'middle';
+            ctxB.fillText(p.num, meioX, meioY);
+            info.textContent = `Figura ${estadoB.figuraAtual}: Lado ${p.num}`;
+            i++;
+            animacaoQ20B = setTimeout(animar, 400);
+        } else {
+            info.textContent = `Perímetro total da Figura ${estadoB.figuraAtual}: ${passos.length} lados!`;
+            atualizarTabela(estadoB.figuraAtual, 'perimetro', passos.length);
+            animacaoQ20B = null;
         }
-        animar();
     }
+    animar();
+}
 
-    function iniciarAreaB() {
-    if (animacaoQ20B) {
-        clearTimeout(animacaoQ20B);
-        animacaoQ20B = null;
-    }
-        if (!estadoB.figuraAtual) { document.getElementById('infoCanvasB').textContent = "Selecione uma figura!"; return; }
-        let quadrados = figurasData[estadoB.figuraAtual].squares; let i = 0;
-        const info = document.getElementById('infoCanvasB');
-        info.textContent = "Contando quadradinhos...";
-        desenharBase(ctxB, estadoB);
-        function animar() {
-            if (i < quadrados.length) {
-                const q = quadrados[i];
-                ctxB.fillStyle = 'rgba(0, 123, 255, 0.5)';
-                ctxB.fillRect(offset + q.x * escala, offset + q.y * escala, escala, escala);
-                ctxB.fillStyle = 'green'; ctxB.font = 'bold 20px Arial'; ctxB.textAlign = 'center'; ctxB.textBaseline = 'middle';
-                ctxB.fillText(i + 1, offset + q.x * escala + escala/2, offset + q.y * escala + escala/2);
-                info.textContent = `Figura ${estadoB.figuraAtual}: Quadradinho ${i + 1}`;
-                i++; setTimeout(animar, 250);
-            } else {
-                info.textContent = `Área total da Figura ${estadoB.figuraAtual}: ${quadrados.length} quadrados!`;
-                atualizarTabela(estadoB.figuraAtual, 'area', quadrados.length);
-            }
+function iniciarAreaB() {
+    if (animacaoQ20B) { clearTimeout(animacaoQ20B); animacaoQ20B = null; }
+    if (!estadoB.figuraAtual) { document.getElementById('infoCanvasB').textContent = "Selecione uma figura!"; return; }
+    let quadrados = figurasData[estadoB.figuraAtual].squares;
+    let i = 0;
+    const info = document.getElementById('infoCanvasB');
+    info.textContent = "Contando quadradinhos...";
+    desenharBase(ctxB, estadoB);
+    function animar() {
+        if (i < quadrados.length) {
+            const q = quadrados[i];
+            ctxB.fillStyle = 'rgba(0, 123, 255, 0.5)';
+            ctxB.fillRect(offset + q.x * escala, offset + q.y * escala, escala, escala);
+            ctxB.fillStyle = '#003366';
+            ctxB.font = 'bold 20px Arial';
+            ctxB.textAlign = 'center';
+            ctxB.textBaseline = 'middle';
+            ctxB.fillText(i + 1, offset + q.x * escala + escala/2, offset + q.y * escala + escala/2);
+            info.textContent = `Figura ${estadoB.figuraAtual}: Quadradinho ${i + 1}`;
+            i++;
+            animacaoQ20B = setTimeout(animar, 250);
+        } else {
+            info.textContent = `Área total da Figura ${estadoB.figuraAtual}: ${quadrados.length} quadrados!`;
+            atualizarTabela(estadoB.figuraAtual, 'area', quadrados.length);
+            animacaoQ20B = null;
         }
-        animar();
     }
+    animar();
+}
 
-    function resetarCanvasB() {
-    if (animacaoQ20B) {
-        clearTimeout(animacaoQ20B);
-        animacaoQ20B = null;
+function resetarCanvasB() {
+    if (animacaoQ20B) { clearTimeout(animacaoQ20B); animacaoQ20B = null; }
+    estadoB.figuraAtual = null;
+    document.getElementById('infoCanvasB').textContent = "Clique em uma figura.";
+    for (let fig of ['A', 'B', 'C', 'D']) {
+        document.getElementById('perB_' + fig).textContent = '-';
+        document.getElementById('areaB_' + fig).textContent = '-';
     }
-        estadoB.figuraAtual = null;
-        document.getElementById('infoCanvasB').textContent = "Clique em uma figura.";
-        for (let fig of ['A', 'B', 'C', 'D']) { document.getElementById('perB_' + fig).textContent = '-'; document.getElementById('areaB_' + fig).textContent = '-'; }
-        document.querySelectorAll('.destaque-linha').forEach(linha => linha.classList.remove('destaque-linha'));
-        desenharBase(ctxB, estadoB);
-    }
+    document.querySelectorAll('.destaque-linha').forEach(linha => linha.classList.remove('destaque-linha'));
+    desenharBase(ctxB, estadoB);
+}
 
-    // Q22 Lupa B
-    function desenharBaseQ22(canvasId, infoId) {
-        var canvas = document.getElementById(canvasId); var ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#f5f5f5'; ctx.fillRect(20, 50, 460, 40); ctx.strokeStyle = '#333'; ctx.lineWidth = 2; ctx.strokeRect(20, 50, 460, 40);
-        ctx.fillStyle = '#000'; ctx.font = '16px Arial'; ctx.textAlign = 'center';
-        for (var i = 0; i <= 5; i++) { var x = 20 + i * 92; ctx.beginPath(); ctx.moveTo(x, 50); ctx.lineTo(x, 70); ctx.stroke(); ctx.fillText(i, x, 45); }
-        ctx.fillStyle = 'rgba(255, 235, 59, 0.5)'; ctx.fillRect(20 + 4.5 * 92, 50, 0.5 * 92, 40); ctx.fillStyle = 'red'; ctx.fillText('4,5 cm', 20 + 4.5 * 92, 40);
-        document.getElementById(infoId).textContent = "Régua pronta.";
+// =====================================================================
+// 4. CONVERSÃO cm → mm (Q22) - LUPA
+// =====================================================================
+function desenharBaseQ22(canvasId, infoId) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#f5f5f5';
+    ctx.fillRect(20, 50, 460, 40);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(20, 50, 460, 40);
+    ctx.fillStyle = '#000';
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    for (var i = 0; i <= 5; i++) {
+        var x = 20 + i * 92;
+        ctx.beginPath();
+        ctx.moveTo(x, 50);
+        ctx.lineTo(x, 70);
+        ctx.stroke();
+        ctx.fillText(i, x, 45);
     }
-    function animarLupaQ22B() {
-    if (animacaoQ22B) {
-        clearInterval(animacaoQ22B);
-        animacaoQ22B = null;
-    }
+    ctx.fillStyle = 'rgba(255, 235, 59, 0.5)';
+    ctx.fillRect(20 + 4.5 * 92, 50, 0.5 * 92, 40);
+    ctx.fillStyle = '#003366';
+    ctx.fillText('4,5 cm', 20 + 4.5 * 92, 40);
+    document.getElementById(infoId).textContent = "Régua pronta.";
+}
+
+function animarLupaQ22B() {
+    if (animacaoQ22B) { clearInterval(animacaoQ22B); animacaoQ22B = null; }
     var canvasId = 'canvasQ22B', infoId = 'infoQ22B';
-    var canvas = document.getElementById(canvasId), ctx = canvas.getContext('2d'), info = document.getElementById(infoId);
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    var info = document.getElementById(infoId);
     var mil = 0, totalMil = 45;
     desenharBaseQ22(canvasId, infoId);
     animacaoQ22B = setInterval(function() {
         desenharBaseQ22(canvasId, infoId);
-        ctx.strokeStyle = '#d32f2f';
+        ctx.strokeStyle = '#003366';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         for (var i = 0; i < mil; i++) {
@@ -711,7 +519,7 @@ if (animacaoQ20B) {
         ctx.strokeStyle = '#333';
         ctx.lineWidth = 3;
         ctx.stroke();
-        ctx.fillStyle = '#333';
+        ctx.fillStyle = '#003366';
         ctx.font = 'bold 14px Arial';
         ctx.textAlign = 'center';
         ctx.fillText(mil + ' mm', lupaX, lupaY - 50);
@@ -724,174 +532,299 @@ if (animacaoQ20B) {
         }
     }, 60);
 }
-   function resetarLupaQ22B() {
-    if (animacaoQ22B) {
-        clearInterval(animacaoQ22B);
-        animacaoQ22B = null;
-    }
+
+function resetarLupaQ22B() {
+    if (animacaoQ22B) { clearInterval(animacaoQ22B); animacaoQ22B = null; }
     desenharBaseQ22('canvasQ22B', 'infoQ22B');
 }
 
-    // Q21
-    function girarQuadradoQ21(turma) {
-        var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B'; var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
-        var canvas = document.getElementById(canvasId); var ctx = canvas.getContext('2d'); var info = document.getElementById(infoId);
-        ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.save(); ctx.translate(125, 125); ctx.rotate(Math.PI / 4); ctx.fillStyle = '#e3f2fd'; ctx.strokeStyle = '#0077be'; ctx.lineWidth = 4; ctx.fillRect(-80, -80, 160, 160); ctx.strokeRect(-80, -80, 160, 160);
-        ctx.strokeStyle = '#ff9800'; ctx.lineWidth = 2; ctx.strokeRect(-80, -80, 20, 20); ctx.strokeRect(60, -80, 20, 20); ctx.strokeRect(-80, 60, 20, 20); ctx.strokeRect(60, 60, 20, 20); ctx.restore();
-        ctx.fillStyle = '#333'; ctx.font = 'bold 18px Arial'; ctx.textAlign = 'center'; ctx.fillText('Quadrado', 125, 130); info.textContent = "Girou 45°!";
-    }
-    function resetarQuadradoQ21(turma) { var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B'; var canvas = document.getElementById(canvasId); var ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#e3f2fd'; ctx.strokeStyle = '#0077be'; ctx.lineWidth = 4; ctx.fillRect(45, 45, 160, 160); ctx.strokeRect(45, 45, 160, 160); }
+// =====================================================================
+// 5. QUADRADO (Q21)
+// =====================================================================
+function girarQuadradoQ21(turma) {
+    var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
+    var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    var info = document.getElementById(infoId);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.translate(125, 125);
+    ctx.rotate(Math.PI / 4);
+    ctx.fillStyle = '#e3f2fd';
+    ctx.strokeStyle = '#0077be';
+    ctx.lineWidth = 4;
+    ctx.fillRect(-80, -80, 160, 160);
+    ctx.strokeRect(-80, -80, 160, 160);
+    ctx.strokeStyle = '#003366';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(-80, -80, 20, 20);
+    ctx.strokeRect(60, -80, 20, 20);
+    ctx.strokeRect(-80, 60, 20, 20);
+    ctx.strokeRect(60, 60, 20, 20);
+    ctx.restore();
+    ctx.fillStyle = '#003366';
+    ctx.font = 'bold 18px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Quadrado', 125, 130);
+    info.textContent = "Girou 45°!";
+}
 
-    // Porcentagens
-    function desenharBarraTotal(ctx, canvas) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#f0f0f0'; ctx.fillRect(50, 50, 400, 40); ctx.strokeStyle = '#333'; ctx.lineWidth = 2; ctx.strokeRect(50, 50, 400, 40);
-        ctx.fillStyle = '#333'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.fillText('100% (Total)', 250, 30);
-    }
-    function animarTeoriaPorc(turma, porcentagem) {
-        var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB'; var infoId = turma === 'A' ? 'infoTeoriaPorcA' : 'infoTeoriaPorcB';
-        var canvas = document.getElementById(canvasId); var ctx = canvas.getContext('2d'); var info = document.getElementById(infoId);
-        desenharBarraTotal(ctx, canvas);
-        var numPartes, valorTotal, exemploTexto, cor;
-        if (porcentagem === 10) { numPartes = 10; valorTotal = 780; exemploTexto = '78'; cor = '#4caf50'; }
-        else if (porcentagem === 25) { numPartes = 4; valorTotal = 800; exemploTexto = '200'; cor = '#ff9800'; }
-        else { numPartes = 2; valorTotal = 789; exemploTexto = '394,50'; cor = '#e91e63'; }
-        var larguraParte = 400 / numPartes;
-        for (var i = 0; i < numPartes; i++) { var x = 50 + (i * larguraParte); ctx.strokeStyle = '#888'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, 50); ctx.lineTo(x, 90); ctx.stroke(); if (i === 0) { ctx.fillStyle = cor; ctx.fillRect(x, 50, larguraParte, 40); } }
-        ctx.fillStyle = '#fff'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center'; ctx.fillText(porcentagem + '%', 50 + (larguraParte / 2), 75);
-        ctx.fillStyle = '#333'; ctx.font = 'bold 16px Arial'; ctx.fillText('Fração: 1/' + numPartes, 250, 130);
-        if (porcentagem === 10) { ctx.fillStyle = '#4caf50'; ctx.fillText('10% de 780 = ' + exemploTexto, 250, 160); }
-        else if (porcentagem === 25) { ctx.fillStyle = '#ff9800'; ctx.fillText('25% de 800 = ' + exemploTexto, 250, 160); }
-        else { ctx.fillStyle = '#e91e63'; ctx.fillText('50% de 789 = ' + exemploTexto, 250, 160); }
-        info.textContent = "Mostrando " + porcentagem + "% (1/" + numPartes + ")";
-    }
-    function resetarTeoriaPorc(turma) { var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB'; var canvas = document.getElementById(canvasId); var ctx = canvas.getContext('2d'); desenharBarraTotal(ctx, canvas); }
+function resetarQuadradoQ21(turma) {
+    var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#e3f2fd';
+    ctx.strokeStyle = '#0077be';
+    ctx.lineWidth = 4;
+    ctx.fillRect(45, 45, 160, 160);
+    ctx.strokeRect(45, 45, 160, 160);
+}
 
-    //Q19
-    let progressoCilindro = 0; let intervaloCilindro = null;
-    function desenharCilindroQ19() {
-        const canvas = document.getElementById('canvasQ19'); const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const cx = 220, cy = 125, raio = 30, altura = 100; const corRetangulo = '#c8e6c9', corCirculo = '#ffcdd2', borda = '#2e7d32', bordaCirculo = '#d32f2f';
-        ctx.fillStyle = corRetangulo; ctx.strokeStyle = borda; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx - raio, cy - altura/2); ctx.lineTo(cx + raio, cy - altura/2); ctx.lineTo(cx + raio, cy + altura/2); ctx.lineTo(cx - raio, cy + altura/2); ctx.closePath(); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = corCirculo; ctx.strokeStyle = bordaCirculo; ctx.beginPath(); ctx.ellipse(cx, cy + altura/2, raio, raio/3, 0, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
-        ctx.beginPath(); ctx.ellipse(cx, cy - altura/2, raio, raio/3, 0, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = '#333'; ctx.font = 'bold 18px Arial'; ctx.textAlign = 'center'; ctx.fillText('Cilindro', cx, cy - altura/2 - 15);
-        if (progressoCilindro > 0) {
-            ctx.fillStyle = bordaCirculo; ctx.font = 'bold 14px Arial'; ctx.fillText('2 círculos', 140, 30); ctx.fillStyle = borda; ctx.fillText('1 retângulo', 400, 30);
-            ctx.fillStyle = corCirculo; ctx.strokeStyle = bordaCirculo; ctx.beginPath(); ctx.ellipse(cx - 150, cy - altura/2 - progressoCilindro, raio, raio/3, 0, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
-            ctx.beginPath(); ctx.ellipse(cx - 150, cy + altura/2 + progressoCilindro, raio, raio/3, 0, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
-            ctx.fillStyle = corRetangulo; ctx.strokeStyle = borda; ctx.beginPath(); ctx.moveTo(cx + 80 + progressoCilindro, cy - altura/2); ctx.lineTo(cx + 200 + progressoCilindro, cy - altura/2); ctx.lineTo(cx + 200 + progressoCilindro, cy + altura/2); ctx.lineTo(cx + 80 + progressoCilindro, cy + altura/2); ctx.closePath(); ctx.fill(); ctx.stroke();
-            ctx.strokeStyle = '#888'; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(cx - 150, cy - altura/2); ctx.lineTo(cx - 150, cy + altura/2); ctx.stroke(); ctx.setLineDash([]);
+// =====================================================================
+// 6. PORCENTAGEM
+// =====================================================================
+function desenharBarraTotal(ctx, canvas) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fillRect(50, 50, 400, 40);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(50, 50, 400, 40);
+    ctx.fillStyle = '#003366';
+    ctx.font = 'bold 16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('100% (Total)', 250, 30);
+}
+
+function animarTeoriaPorc(turma, porcentagem) {
+    var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
+    var infoId = turma === 'A' ? 'infoTeoriaPorcA' : 'infoTeoriaPorcB';
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    var info = document.getElementById(infoId);
+    desenharBarraTotal(ctx, canvas);
+    var numPartes, valorTotal, exemploTexto, cor;
+    if (porcentagem === 10) { numPartes = 10; valorTotal = 780; exemploTexto = '78'; cor = '#4caf50'; }
+    else if (porcentagem === 25) { numPartes = 4; valorTotal = 800; exemploTexto = '200'; cor = '#ff9800'; }
+    else { numPartes = 2; valorTotal = 789; exemploTexto = '394,50'; cor = '#e91e63'; }
+    var larguraParte = 400 / numPartes;
+    for (var i = 0; i < numPartes; i++) {
+        var x = 50 + (i * larguraParte);
+        ctx.strokeStyle = '#888';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x, 50);
+        ctx.lineTo(x, 90);
+        ctx.stroke();
+        if (i === 0) { ctx.fillStyle = cor; ctx.fillRect(x, 50, larguraParte, 40); }
+    }
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 14px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(porcentagem + '%', 50 + (larguraParte / 2), 75);
+    ctx.fillStyle = '#003366';
+    ctx.font = 'bold 16px Arial';
+    ctx.fillText('Fração: 1/' + numPartes, 250, 130);
+    ctx.fillStyle = cor;
+    ctx.fillText(porcentagem + '% de ' + valorTotal + ' = ' + exemploTexto, 250, 160);
+    info.textContent = "Mostrando " + porcentagem + "% (1/" + numPartes + ")";
+}
+
+function resetarTeoriaPorc(turma) {
+    var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    desenharBarraTotal(ctx, canvas);
+}
+
+// =====================================================================
+// 7. CILINDRO (Q19)
+// =====================================================================
+function desenharCilindroQ19() {
+    const canvas = document.getElementById('canvasQ19');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const cx = 220, cy = 125, raio = 30, altura = 100;
+    const corRetangulo = '#c8e6c9', corCirculo = '#ffcdd2';
+    const borda = '#2e7d32', bordaCirculo = '#003366';
+    ctx.fillStyle = corRetangulo;
+    ctx.strokeStyle = borda;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(cx - raio, cy - altura/2);
+    ctx.lineTo(cx + raio, cy - altura/2);
+    ctx.lineTo(cx + raio, cy + altura/2);
+    ctx.lineTo(cx - raio, cy + altura/2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = corCirculo;
+    ctx.strokeStyle = bordaCirculo;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + altura/2, raio, raio/3, 0, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(cx, cy - altura/2, raio, raio/3, 0, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = '#003366';
+    ctx.font = 'bold 18px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Cilindro', cx, cy - altura/2 - 15);
+    if (progressoCilindro > 0) {
+        ctx.fillStyle = '#003366';
+        ctx.font = 'bold 14px Arial';
+        ctx.fillText('2 círculos', 140, 30);
+        ctx.fillStyle = '#003366';
+        ctx.fillText('1 retângulo', 400, 30);
+        ctx.fillStyle = corCirculo;
+        ctx.strokeStyle = bordaCirculo;
+        ctx.beginPath();
+        ctx.ellipse(cx - 150, cy - altura/2 - progressoCilindro, raio, raio/3, 0, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(cx - 150, cy + altura/2 + progressoCilindro, raio, raio/3, 0, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = corRetangulo;
+        ctx.strokeStyle = borda;
+        ctx.beginPath();
+        ctx.moveTo(cx + 80 + progressoCilindro, cy - altura/2);
+        ctx.lineTo(cx + 200 + progressoCilindro, cy - altura/2);
+        ctx.lineTo(cx + 200 + progressoCilindro, cy + altura/2);
+        ctx.lineTo(cx + 80 + progressoCilindro, cy + altura/2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.strokeStyle = '#888';
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(cx - 150, cy - altura/2);
+        ctx.lineTo(cx - 150, cy + altura/2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+    }
+}
+
+function animarCilindroQ19() {
+    const info = document.getElementById('infoQ19');
+    if (intervaloCilindro) clearInterval(intervaloCilindro);
+    progressoCilindro = 0;
+    info.textContent = "Desmontando...";
+    intervaloCilindro = setInterval(function() {
+        progressoCilindro += 5;
+        desenharCilindroQ19();
+        if (progressoCilindro >= 60) {
+            clearInterval(intervaloCilindro);
+            intervaloCilindro = null;
+            info.textContent = "Cilindro = 2 círculos + 1 retângulo";
         }
-    }
-    function animarCilindroQ19() {
-        const info = document.getElementById('infoQ19'); if (intervaloCilindro) clearInterval(intervaloCilindro); progressoCilindro = 0; info.textContent = "Desmontando...";
-        intervaloCilindro = setInterval(function() { progressoCilindro += 5; desenharCilindroQ19(); if (progressoCilindro >= 60) { clearInterval(intervaloCilindro); intervaloCilindro = null; info.textContent = "Cilindro = 2 círculos + 1 retângulo"; } }, 30);
-    }
-    function resetarCilindroQ19() { if (intervaloCilindro) clearInterval(intervaloCilindro); intervaloCilindro = null; progressoCilindro = 0; desenharCilindroQ19(); document.getElementById('infoQ19').textContent = "Clique para ver"; }
+    }, 30);
+}
 
-    // Figura U
-    let indexU = 0; let intervalU = null;
-    const passosU = [
-        {x1:30, y1:60, x2:90, y2:60},
-        {x1:30, y1:60, x2:30, y2:120}, {x1:30, y1:120, x2:30, y2:180}, {x1:30, y1:180, x2:30, y2:240},
-        {x1:30, y1:240, x2:90, y2:240}, {x1:90, y1:240, x2:150, y2:240}, {x1:150, y1:240, x2:210, y2:240},
-        {x1:210, y1:240, x2:210, y2:180}, {x1:210, y1:180, x2:210, y2:120}, {x1:210, y1:120, x2:210, y2:60},
-        {x1:210, y1:60, x2:150, y2:60},
-        {x1:150, y1:60, x2:150, y2:120}, {x1:150, y1:120, x2:150, y2:180},
-        {x1:150, y1:180, x2:90, y2:180},
-        {x1:90, y1:180, x2:90, y2:120}, {x1:90, y1:120, x2:90, y2:60}
-    ];
-    function desenharBaseU() {
+function resetarCilindroQ19() {
+    if (intervaloCilindro) clearInterval(intervaloCilindro);
+    intervaloCilindro = null;
+    progressoCilindro = 0;
+    desenharCilindroQ19();
+    document.getElementById('infoQ19').textContent = "Clique para ver";
+}
+
+// =====================================================================
+// 8. FIGURA U
+// =====================================================================
+
+
+// ===== FIGURA U (CORRIGIDA) =====
+let indexU = 0;
+let intervalU = null;
+const passosU = [
+    {x1:30, y1:60, x2:90, y2:60},
+    {x1:30, y1:60, x2:30, y2:120},
+    {x1:30, y1:120, x2:30, y2:180},
+    {x1:30, y1:180, x2:30, y2:240},
+    {x1:30, y1:240, x2:90, y2:240},
+    {x1:90, y1:240, x2:150, y2:240},
+    {x1:150, y1:240, x2:210, y2:240},
+    {x1:210, y1:240, x2:210, y2:180},
+    {x1:210, y1:180, x2:210, y2:120},
+    {x1:210, y1:120, x2:210, y2:60},
+    {x1:210, y1:60, x2:150, y2:60},
+    {x1:150, y1:60, x2:150, y2:120},
+    {x1:150, y1:120, x2:150, y2:180},
+    {x1:150, y1:180, x2:90, y2:180},
+    {x1:90, y1:180, x2:90, y2:120},
+    {x1:90, y1:120, x2:90, y2:60}
+];
+
+function desenharBaseU() {
     const canvas = document.getElementById('canvasU');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Define as coordenadas da grade (alinhadas com a figura U)
-    const xInicio = 30;
-    const xFim = 210;
-    const yInicio = 60;
-    const yFim = 240;
-    const passo = 60; // cada quadradinho tem 60x60
-
-    // Desenha a malha (linhas cinza)
+    const xInicio = 30, xFim = 210, yInicio = 60, yFim = 240, passo = 60;
+    // Desenha malha cinza
     ctx.strokeStyle = '#ccc';
     ctx.lineWidth = 1;
-
-    // Linhas verticais
     for (let x = xInicio; x <= xFim; x += passo) {
         ctx.beginPath();
         ctx.moveTo(x, yInicio);
         ctx.lineTo(x, yFim);
         ctx.stroke();
     }
-
-    // Linhas horizontais
     for (let y = yInicio; y <= yFim; y += passo) {
         ctx.beginPath();
         ctx.moveTo(xInicio, y);
         ctx.lineTo(xFim, y);
         ctx.stroke();
     }
-
-    // Desenha a figura U (linhas pretas grossas)
-    ctx.strokeStyle = '#333';
+    // Desenha figura U em azul escuro
+    ctx.strokeStyle = '#003366';
     ctx.lineWidth = 3;
-
-    // Os lados da figura U (mesmos passosU, mas agora alinhados com a grade)
-    const passosU = [
-        {x1:30, y1:60, x2:90, y2:60},
-        {x1:30, y1:60, x2:30, y2:120},
-        {x1:30, y1:120, x2:30, y2:180},
-        {x1:30, y1:180, x2:30, y2:240},
-        {x1:30, y1:240, x2:90, y2:240},
-        {x1:90, y1:240, x2:150, y2:240},
-        {x1:150, y1:240, x2:210, y2:240},
-        {x1:210, y1:240, x2:210, y2:180},
-        {x1:210, y1:180, x2:210, y2:120},
-        {x1:210, y1:120, x2:210, y2:60},
-        {x1:210, y1:60, x2:150, y2:60},
-        {x1:150, y1:60, x2:150, y2:120},
-        {x1:150, y1:120, x2:150, y2:180},
-        {x1:150, y1:180, x2:90, y2:180},
-        {x1:90, y1:180, x2:90, y2:120},
-        {x1:90, y1:120, x2:90, y2:60}
-    ];
-
     for (let p of passosU) {
         ctx.beginPath();
         ctx.moveTo(p.x1, p.y1);
         ctx.lineTo(p.x2, p.y2);
         ctx.stroke();
     }
-
     document.getElementById('infoU').textContent = "Figura U desenhada. Clique em 'Contar Perímetro'.";
 }
-    function animarFiguraU() {
+
+function animarFiguraU() {
+    // Cancela animação anterior
     if (intervalU) {
         clearInterval(intervalU);
         intervalU = null;
     }
+    // Redesenha a base (figura + malha)
     desenharBaseU();
     const canvas = document.getElementById('canvasU');
     const ctx = canvas.getContext('2d');
     const info = document.getElementById('infoU');
-    ctx.strokeStyle = '#e74c3c';
+    // Usa vermelho para destacar a contagem
+    ctx.strokeStyle = '#d32f2f';
     ctx.lineWidth = 4;
     indexU = 0;
     info.textContent = "Contando os lados...";
     intervalU = setInterval(function() {
         if (indexU < passosU.length) {
             const p = passosU[indexU];
+            // Desenha o lado em vermelho
             ctx.beginPath();
             ctx.moveTo(p.x1, p.y1);
             ctx.lineTo(p.x2, p.y2);
             ctx.stroke();
+            // Escreve o número em vermelho
             ctx.fillStyle = '#d32f2f';
             ctx.font = 'bold 16px Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(indexU + 1, (p.x1 + p.x2) / 2, (p.y1 + p.y2) / 2);
+            const meioX = (p.x1 + p.x2) / 2;
+            const meioY = (p.y1 + p.y2) / 2;
+            ctx.fillText(indexU + 1, meioX, meioY);
             info.textContent = "Lado " + (indexU + 1) + " de 16";
             indexU++;
         } else {
@@ -901,40 +834,99 @@ if (animacaoQ20B) {
         }
     }, 400);
 }
-    function resetarFiguraU() {
+
+function resetarFiguraU() {
     if (intervalU) {
         clearInterval(intervalU);
         intervalU = null;
-    } if (intervalU) clearInterval(intervalU); intervalU = null; const canvas = document.getElementById('canvasU'); const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height); document.getElementById('infoU').textContent = "Clique em 'Desenhar U'"; }
+    }
+    const canvas = document.getElementById('canvasU');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('infoU').textContent = "Clique em 'Desenhar U'";
+}
 
-    // Malha Livre B
-    const escalaLivre = 50;
-    let gridB = Array.from({length: 5}, () => Array(8).fill(0));
-    function desenharMalhaLivre(canvasId, grid) {
-        const canvas = document.getElementById(canvasId); const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, 400, 250);
-        ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1;
-        for (let i = 0; i <= 8; i++) { ctx.beginPath(); ctx.moveTo(i * escalaLivre, 0); ctx.lineTo(i * escalaLivre, 250); ctx.stroke(); }
-        for (let i = 0; i <= 5; i++) { ctx.beginPath(); ctx.moveTo(0, i * escalaLivre); ctx.lineTo(400, i * escalaLivre); ctx.stroke(); }
-        ctx.fillStyle = 'rgba(52, 152, 219, 0.5)';
-        for (let lin = 0; lin < 5; lin++) { for (let col = 0; col < 8; col++) { if (grid[lin][col] === 1) { ctx.fillRect(col * escalaLivre, lin * escalaLivre, escalaLivre, escalaLivre); } } }
-    }
-    function configurarCliques(canvasId, grid) {
-        const canvas = document.getElementById(canvasId);
-        canvas.addEventListener('click', function(e) { const rect = canvas.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; const col = Math.floor(x / escalaLivre); const lin = Math.floor(y / escalaLivre); if (lin >= 0 && lin < 5 && col >= 0 && col < 8) { grid[lin][col] = grid[lin][col] === 1 ? 0 : 1; desenharMalhaLivre(canvasId, grid); } });
-    }
-    function calcularMalhaLivre(turma) {
-        const grid = gridB; const infoId = 'infoLivreB'; let area = 0; let perimetro = 0;
-        for (let lin = 0; lin < 5; lin++) { for (let col = 0; col < 8; col++) { if (grid[lin][col] === 1) area++; } }
-        for (let lin = 0; lin < 5; lin++) { for (let col = 0; col < 8; col++) { if (grid[lin][col] === 1) { if (lin === 0 || grid[lin - 1][col] === 0) perimetro++; if (lin === 4 || grid[lin + 1][col] === 0) perimetro++; if (col === 0 || grid[lin][col - 1] === 0) perimetro++; if (col === 7 || grid[lin][col + 1] === 0) perimetro++; } } }
-        document.getElementById(infoId).textContent = "Área: " + area + " | Perímetro: " + perimetro;
-    }
-    function limparMalhaLivre(turma) { for (let lin = 0; lin < 5; lin++) { for (let col = 0; col < 8; col++) gridB[lin][col] = 0; } desenharMalhaLivre('canvasLivreB', gridB); document.getElementById('infoLivreB').textContent = "Clique nos quadrados."; }
 
-    // Inicializar
-    desenharBase(ctxB, estadoB);
-    desenharBaseQ22('canvasQ22B', 'infoQ22B');
-    configurarCliques('canvasLivreB', gridB);
+// =====================================================================
+// 9. MALHA LIVRE (EXTRA)
+// =====================================================================
+const escalaLivre = 50;
+let gridB = Array.from({length: 5}, () => Array(8).fill(0));
+
+function desenharMalhaLivre(canvasId, grid) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 400, 250);
+    ctx.strokeStyle = '#ccc';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 8; i++) { ctx.beginPath(); ctx.moveTo(i * escalaLivre, 0); ctx.lineTo(i * escalaLivre, 250); ctx.stroke(); }
+    for (let i = 0; i <= 5; i++) { ctx.beginPath(); ctx.moveTo(0, i * escalaLivre); ctx.lineTo(400, i * escalaLivre); ctx.stroke(); }
+    ctx.fillStyle = 'rgba(52, 152, 219, 0.5)';
+    for (let lin = 0; lin < 5; lin++) {
+        for (let col = 0; col < 8; col++) {
+            if (grid[lin][col] === 1) {
+                ctx.fillRect(col * escalaLivre, lin * escalaLivre, escalaLivre, escalaLivre);
+            }
+        }
+    }
+}
+
+function configurarCliques(canvasId, grid) {
+    const canvas = document.getElementById(canvasId);
+    canvas.addEventListener('click', function(e) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const col = Math.floor(x / escalaLivre);
+        const lin = Math.floor(y / escalaLivre);
+        if (lin >= 0 && lin < 5 && col >= 0 && col < 8) {
+            grid[lin][col] = grid[lin][col] === 1 ? 0 : 1;
+            desenharMalhaLivre(canvasId, grid);
+        }
+    });
+}
+
+function calcularMalhaLivre(turma) {
+    const grid = gridB;
+    const infoId = 'infoLivreB';
+    let area = 0, perimetro = 0;
+    for (let lin = 0; lin < 5; lin++) {
+        for (let col = 0; col < 8; col++) {
+            if (grid[lin][col] === 1) area++;
+        }
+    }
+    for (let lin = 0; lin < 5; lin++) {
+        for (let col = 0; col < 8; col++) {
+            if (grid[lin][col] === 1) {
+                if (lin === 0 || grid[lin - 1][col] === 0) perimetro++;
+                if (lin === 4 || grid[lin + 1][col] === 0) perimetro++;
+                if (col === 0 || grid[lin][col - 1] === 0) perimetro++;
+                if (col === 7 || grid[lin][col + 1] === 0) perimetro++;
+            }
+        }
+    }
+    document.getElementById(infoId).textContent = "Área: " + area + " | Perímetro: " + perimetro;
+}
+
+function limparMalhaLivre(turma) {
+    for (let lin = 0; lin < 5; lin++) {
+        for (let col = 0; col < 8; col++) {
+            gridB[lin][col] = 0;
+        }
+    }
     desenharMalhaLivre('canvasLivreB', gridB);
+    document.getElementById('infoLivreB').textContent = "Clique nos quadrados.";
+}
+
+// =====================================================================
+// 10. INICIALIZAÇÃO
+// =====================================================================
+desenharBase(ctxB, estadoB);
+desenharBaseQ22('canvasQ22B', 'infoQ22B');
+configurarCliques('canvasLivreB', gridB);
+desenharMalhaLivre('canvasLivreB', gridB);
+
+console.log("Turma B carregada com sucesso!");
 </script>
 </body>
 </html>
