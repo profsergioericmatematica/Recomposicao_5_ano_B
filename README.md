@@ -1,4 +1,3 @@
----
 
 # 📐 Projeto Integrador V – Recomposição Matemática – Turma B
 
@@ -109,4 +108,4 @@ Este projeto é de uso educacional e acadêmico, desenvolvido no âmbito da UNIV
 
 Para dúvidas ou sugestões, entre em contato com a equipe por meio dos polos da UNIVESP ou via issues neste repositório.
 
----
+
