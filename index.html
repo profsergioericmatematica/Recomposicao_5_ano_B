@@ -177,6 +177,7 @@ body {
 canvas {
     border: 1px solid #ccc;
     background-color: white;
+   
     max-width: 100%;
     height: auto;
     display: block;
@@ -520,6 +521,11 @@ canvas {
 </div>
 
 <script>
+
+    let animacaoQ15B = null;
+let animacaoQ22B = null;
+let animacaoQ20B = null;
+let animacaoU = null;
     function toggleResposta(button) {
         const resposta = button.nextElementSibling;
         if (resposta.classList.contains('visible')) {
@@ -594,6 +600,12 @@ canvas {
     }
 
     function iniciarPerimetroB() {
+
+if (animacaoQ20B) {
+        clearTimeout(animacaoQ20B);
+        animacaoQ20B = null;
+    }
+
         if (!estadoB.figuraAtual) { document.getElementById('infoCanvasB').textContent = "Selecione uma figura!"; return; }
         let passos = figurasData[estadoB.figuraAtual].passos; let i = 0;
         const info = document.getElementById('infoCanvasB');
@@ -618,6 +630,10 @@ canvas {
     }
 
     function iniciarAreaB() {
+    if (animacaoQ20B) {
+        clearTimeout(animacaoQ20B);
+        animacaoQ20B = null;
+    }
         if (!estadoB.figuraAtual) { document.getElementById('infoCanvasB').textContent = "Selecione uma figura!"; return; }
         let quadrados = figurasData[estadoB.figuraAtual].squares; let i = 0;
         const info = document.getElementById('infoCanvasB');
@@ -641,6 +657,10 @@ canvas {
     }
 
     function resetarCanvasB() {
+    if (animacaoQ20B) {
+        clearTimeout(animacaoQ20B);
+        animacaoQ20B = null;
+    }
         estadoB.figuraAtual = null;
         document.getElementById('infoCanvasB').textContent = "Clique em uma figura.";
         for (let fig of ['A', 'B', 'C', 'D']) { document.getElementById('perB_' + fig).textContent = '-'; document.getElementById('areaB_' + fig).textContent = '-'; }
@@ -659,14 +679,16 @@ canvas {
         document.getElementById(infoId).textContent = "Régua pronta.";
     }
     function animarLupaQ22B() {
+    if (animacaoQ22B) {
+        clearInterval(animacaoQ22B);
+        animacaoQ22B = null;
+    }
     var canvasId = 'canvasQ22B', infoId = 'infoQ22B';
     var canvas = document.getElementById(canvasId), ctx = canvas.getContext('2d'), info = document.getElementById(infoId);
     var mil = 0, totalMil = 45;
-    var interval = setInterval(function() {
-        // 🔁 Redesenha a régua base
+    desenharBaseQ22(canvasId, infoId);
+    animacaoQ22B = setInterval(function() {
         desenharBaseQ22(canvasId, infoId);
-
-        // Desenha as marcas de mm
         ctx.strokeStyle = '#d32f2f';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
@@ -680,8 +702,6 @@ canvas {
             ctx.fillText(i + 1, mmX, 80);
         }
         ctx.stroke();
-
-        // Lupa
         var lupaX = 20 + ((mil + 1) / 10) * 92;
         var lupaY = 70;
         ctx.beginPath();
@@ -691,22 +711,26 @@ canvas {
         ctx.strokeStyle = '#333';
         ctx.lineWidth = 3;
         ctx.stroke();
-
         ctx.fillStyle = '#333';
         ctx.font = 'bold 14px Arial';
         ctx.textAlign = 'center';
         ctx.fillText(mil + ' mm', lupaX, lupaY - 50);
-
         info.textContent = "Lupa em " + (mil / 10).toFixed(1) + " cm... (mm: " + mil + ")";
         mil++;
-
         if (mil > totalMil) {
-            clearInterval(interval);
+            clearInterval(animacaoQ22B);
+            animacaoQ22B = null;
             info.textContent = "45 mm!";
         }
     }, 60);
 }
-    function resetarLupaQ22B() { desenharBaseQ22('canvasQ22B', 'infoQ22B'); }
+   function resetarLupaQ22B() {
+    if (animacaoQ22B) {
+        clearInterval(animacaoQ22B);
+        animacaoQ22B = null;
+    }
+    desenharBaseQ22('canvasQ22B', 'infoQ22B');
+}
 
     // Q21
     function girarQuadradoQ21(turma) {
@@ -743,17 +767,7 @@ canvas {
     }
     function resetarTeoriaPorc(turma) { var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB'; var canvas = document.getElementById(canvasId); var ctx = canvas.getContext('2d'); desenharBarraTotal(ctx, canvas); }
 
-    // Q8 e Q19
-    function animarTrocoQ8() {
-        var canvas = document.getElementById('canvasQ8'); var ctx = canvas.getContext('2d'); var info = document.getElementById('infoQ8');
-        ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#333'; ctx.font = 'bold 18px Arial'; ctx.textAlign = 'left'; ctx.fillText('R$ 2,00 = 8 moedas de 25', 20, 30); ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.strokeRect(50, 150, 300, 70);
-        var i = 0; var intervalo = setInterval(function() {
-            if (i < 8) { var x = 80 + i * 30, y = 120 - (i * 10); if (y < 160) y = 160; ctx.fillStyle = '#ffd700'; ctx.strokeStyle = '#b8860b'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, 15, 0, 2 * Math.PI); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#333'; ctx.font = 'bold 10px Arial'; ctx.textAlign = 'center'; ctx.fillText('25', x, y + 4); i++; }
-            else { clearInterval(intervalo); ctx.fillStyle = '#2e7d32'; ctx.font = 'bold 24px Arial'; ctx.textAlign = 'center'; ctx.fillText('R$ 2,00', 200, 200); info.textContent = "8 moedas de 25 centavos = R$ 2,00!"; }
-        }, 300);
-    }
-    function resetarTrocoQ8() { var canvas = document.getElementById('canvasQ8'); var ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height); document.getElementById('infoQ8').textContent = "Clique para ver"; }
-
+    //Q19
     let progressoCilindro = 0; let intervaloCilindro = null;
     function desenharCilindroQ19() {
         const canvas = document.getElementById('canvasQ19'); const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -789,27 +803,109 @@ canvas {
         {x1:90, y1:180, x2:90, y2:120}, {x1:90, y1:120, x2:90, y2:60}
     ];
     function desenharBaseU() {
-        const canvas = document.getElementById('canvasU'); const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1;
-        for (let i = 0; i <= 3; i++) { ctx.beginPath(); ctx.moveTo(i * 60, 60); ctx.lineTo(i * 60, 240); ctx.stroke(); }
-        for (let i = 0; i <= 3; i++) { ctx.beginPath(); ctx.moveTo(30, i * 60 + 60); ctx.lineTo(210, i * 60 + 60); ctx.stroke(); }
-        ctx.strokeStyle = '#333'; ctx.lineWidth = 3;
-        for (let p of passosU) { ctx.beginPath(); ctx.moveTo(p.x1, p.y1); ctx.lineTo(p.x2, p.y2); ctx.stroke(); }
-        document.getElementById('infoU').textContent = "Figura U desenhada. Clique em 'Contar Perímetro'.";
+    const canvas = document.getElementById('canvasU');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Define as coordenadas da grade (alinhadas com a figura U)
+    const xInicio = 30;
+    const xFim = 210;
+    const yInicio = 60;
+    const yFim = 240;
+    const passo = 60; // cada quadradinho tem 60x60
+
+    // Desenha a malha (linhas cinza)
+    ctx.strokeStyle = '#ccc';
+    ctx.lineWidth = 1;
+
+    // Linhas verticais
+    for (let x = xInicio; x <= xFim; x += passo) {
+        ctx.beginPath();
+        ctx.moveTo(x, yInicio);
+        ctx.lineTo(x, yFim);
+        ctx.stroke();
     }
+
+    // Linhas horizontais
+    for (let y = yInicio; y <= yFim; y += passo) {
+        ctx.beginPath();
+        ctx.moveTo(xInicio, y);
+        ctx.lineTo(xFim, y);
+        ctx.stroke();
+    }
+
+    // Desenha a figura U (linhas pretas grossas)
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 3;
+
+    // Os lados da figura U (mesmos passosU, mas agora alinhados com a grade)
+    const passosU = [
+        {x1:30, y1:60, x2:90, y2:60},
+        {x1:30, y1:60, x2:30, y2:120},
+        {x1:30, y1:120, x2:30, y2:180},
+        {x1:30, y1:180, x2:30, y2:240},
+        {x1:30, y1:240, x2:90, y2:240},
+        {x1:90, y1:240, x2:150, y2:240},
+        {x1:150, y1:240, x2:210, y2:240},
+        {x1:210, y1:240, x2:210, y2:180},
+        {x1:210, y1:180, x2:210, y2:120},
+        {x1:210, y1:120, x2:210, y2:60},
+        {x1:210, y1:60, x2:150, y2:60},
+        {x1:150, y1:60, x2:150, y2:120},
+        {x1:150, y1:120, x2:150, y2:180},
+        {x1:150, y1:180, x2:90, y2:180},
+        {x1:90, y1:180, x2:90, y2:120},
+        {x1:90, y1:120, x2:90, y2:60}
+    ];
+
+    for (let p of passosU) {
+        ctx.beginPath();
+        ctx.moveTo(p.x1, p.y1);
+        ctx.lineTo(p.x2, p.y2);
+        ctx.stroke();
+    }
+
+    document.getElementById('infoU').textContent = "Figura U desenhada. Clique em 'Contar Perímetro'.";
+}
     function animarFiguraU() {
-        if (intervalU) clearInterval(intervalU); desenharBaseU();
-        const canvas = document.getElementById('canvasU'); const ctx = canvas.getContext('2d'); const info = document.getElementById('infoU');
-        ctx.strokeStyle = '#e74c3c'; ctx.lineWidth = 4; indexU = 0; info.textContent = "Contando os lados...";
-        intervalU = setInterval(function() {
-            if (indexU < passosU.length) {
-                const p = passosU[indexU]; ctx.beginPath(); ctx.moveTo(p.x1, p.y1); ctx.lineTo(p.x2, p.y2); ctx.stroke();
-                ctx.fillStyle = '#d32f2f'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(indexU + 1, (p.x1 + p.x2) / 2, (p.y1 + p.y2) / 2);
-                info.textContent = "Lado " + (indexU + 1) + " de 16"; indexU++;
-            } else { clearInterval(intervalU); intervalU = null; info.textContent = "Perímetro total: 16 cm!"; }
-        }, 400);
+    if (intervalU) {
+        clearInterval(intervalU);
+        intervalU = null;
     }
-    function resetarFiguraU() { if (intervalU) clearInterval(intervalU); intervalU = null; const canvas = document.getElementById('canvasU'); const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height); document.getElementById('infoU').textContent = "Clique em 'Desenhar U'"; }
+    desenharBaseU();
+    const canvas = document.getElementById('canvasU');
+    const ctx = canvas.getContext('2d');
+    const info = document.getElementById('infoU');
+    ctx.strokeStyle = '#e74c3c';
+    ctx.lineWidth = 4;
+    indexU = 0;
+    info.textContent = "Contando os lados...";
+    intervalU = setInterval(function() {
+        if (indexU < passosU.length) {
+            const p = passosU[indexU];
+            ctx.beginPath();
+            ctx.moveTo(p.x1, p.y1);
+            ctx.lineTo(p.x2, p.y2);
+            ctx.stroke();
+            ctx.fillStyle = '#d32f2f';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(indexU + 1, (p.x1 + p.x2) / 2, (p.y1 + p.y2) / 2);
+            info.textContent = "Lado " + (indexU + 1) + " de 16";
+            indexU++;
+        } else {
+            clearInterval(intervalU);
+            intervalU = null;
+            info.textContent = "Perímetro total: 16 cm!";
+        }
+    }, 400);
+}
+    function resetarFiguraU() {
+    if (intervalU) {
+        clearInterval(intervalU);
+        intervalU = null;
+    } if (intervalU) clearInterval(intervalU); intervalU = null; const canvas = document.getElementById('canvasU'); const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height); document.getElementById('infoU').textContent = "Clique em 'Desenhar U'"; }
 
     // Malha Livre B
     const escalaLivre = 50;
