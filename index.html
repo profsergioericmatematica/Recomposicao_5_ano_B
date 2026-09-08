@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -355,19 +355,53 @@
         document.getElementById(infoId).textContent = "Régua pronta.";
     }
     function animarLupaQ22B() {
-        var canvasId = 'canvasQ22B', infoId = 'infoQ22B'; var canvas = document.getElementById(canvasId), ctx = canvas.getContext('2d'), info = document.getElementById(infoId);
-        var mil = 0, totalMil = 45; desenharBaseQ22(canvasId, infoId);
-        var interval = setInterval(function() {
-            ctx.strokeStyle = '#d32f2f'; ctx.lineWidth = 1.5; ctx.beginPath();
-            for (var i = 0; i < mil; i++) { var mmX = 20 + ((i + 1) * 9.2); ctx.moveTo(mmX, 50); ctx.lineTo(mmX, 70); ctx.fillStyle = '#000'; ctx.font = '8px Arial'; ctx.textAlign = 'center'; ctx.fillText(i + 1, mmX, 80); }
-            ctx.stroke();
-            var lupaX = 20 + ((mil + 1) / 10) * 92, lupaY = 70; ctx.beginPath(); ctx.arc(lupaX, lupaY, 45, 0, 2 * Math.PI); ctx.fillStyle = 'rgba(200, 230, 255, 0.3)'; ctx.fill(); ctx.strokeStyle = '#333'; ctx.lineWidth = 3; ctx.stroke();
-            ctx.fillStyle = '#333'; ctx.font = 'bold 14px Arial'; ctx.textAlign = 'center'; ctx.fillText(mil + ' mm', lupaX, lupaY - 50);
-            info.textContent = "Lupa em " + (mil / 10).toFixed(1) + " cm... (mm: " + mil + ")";
-            mil++;
-            if (mil > totalMil) { clearInterval(interval); info.textContent = "45 mm!"; }
-        }, 60);
-    }
+    var canvasId = 'canvasQ22B', infoId = 'infoQ22B';
+    var canvas = document.getElementById(canvasId), ctx = canvas.getContext('2d'), info = document.getElementById(infoId);
+    var mil = 0, totalMil = 45;
+    var interval = setInterval(function() {
+        // 🔁 Redesenha a régua base
+        desenharBaseQ22(canvasId, infoId);
+
+        // Desenha as marcas de mm
+        ctx.strokeStyle = '#d32f2f';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        for (var i = 0; i < mil; i++) {
+            var mmX = 20 + ((i + 1) * 9.2);
+            ctx.moveTo(mmX, 50);
+            ctx.lineTo(mmX, 70);
+            ctx.fillStyle = '#000';
+            ctx.font = '8px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(i + 1, mmX, 80);
+        }
+        ctx.stroke();
+
+        // Lupa
+        var lupaX = 20 + ((mil + 1) / 10) * 92;
+        var lupaY = 70;
+        ctx.beginPath();
+        ctx.arc(lupaX, lupaY, 45, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(200, 230, 255, 0.3)';
+        ctx.fill();
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 14px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(mil + ' mm', lupaX, lupaY - 50);
+
+        info.textContent = "Lupa em " + (mil / 10).toFixed(1) + " cm... (mm: " + mil + ")";
+        mil++;
+
+        if (mil > totalMil) {
+            clearInterval(interval);
+            info.textContent = "45 mm!";
+        }
+    }, 60);
+}
     function resetarLupaQ22B() { desenharBaseQ22('canvasQ22B', 'infoQ22B'); }
 
     // Q21
