@@ -42,11 +42,186 @@
         .pincelada-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         @media (max-width: 768px) { body { padding: 8px; } .container { padding: 15px; } .header h1 { font-size: 1.3rem; } .block { padding: 12px; } .block h2 { font-size: 1.1rem; } .block h3 { font-size: 1rem; } .exemplo-box { font-size: 0.95rem; padding: 10px; } .btn-revelar, .btn-dica { font-size: 0.85rem; padding: 6px 14px; } .canvas-controls button { font-size: 0.8rem; padding: 6px 10px; min-height: 40px; } #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB { font-size: 16px; } .tabela-resultados { font-size: 14px; width: 100%; } .tabela-resultados th, .tabela-resultados td { padding: 6px; } .pincelada-grid { grid-template-columns: 1fr; gap: 8px; } }
         @media (max-width: 480px) { .container { padding: 10px; border-radius: 12px; } .header h1 { font-size: 1.1rem; } .block { padding: 10px; border-left-width: 4px; } .block h2 { font-size: 1rem; } .block h3 { font-size: 0.9rem; } .exemplo-box { font-size: 0.85rem; padding: 8px; } .btn-revelar, .btn-dica { font-size: 0.75rem; padding: 5px 12px; } .canvas-controls button { font-size: 0.7rem; padding: 5px 8px; min-height: 36px; min-width: 60px; } .canvas-controls { gap: 4px; } #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB { font-size: 14px; } .tabela-resultados { font-size: 12px; } .tabela-resultados th, .tabela-resultados td { padding: 4px; } .canvas-container { padding: 8px; } }
+
+        /* ===== CABEÇALHO ===== */
+.header-projeto {
+    background: linear-gradient(135deg, #003366 0%, #005a8c 100%);
+    color: white;
+    padding: 20px 25px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+}
+
+.header-projeto h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
+
+.header-projeto h1 .destaque {
+    color: #ffc107;
+}
+
+.header-projeto .subtitulo {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 8px;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.header-projeto .subtitulo .turma {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.header-projeto .badge {
+    display: inline-block;
+    background: #ffc107;
+    color: #003366;
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 2px 12px;
+    border-radius: 12px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== RODAPÉ ===== */
+.footer {
+    background: #003366;
+    color: #e0e7ff;
+    padding: 25px 20px 20px;
+    border-radius: 16px;
+    margin-top: 30px;
+    font-size: 0.9rem;
+}
+
+.footer .footer-conteudo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.footer .footer-col {
+    flex: 1;
+    min-width: 180px;
+}
+
+.footer .footer-col h4 {
+    color: #ffc107;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.footer .footer-col p,
+.footer .footer-col a {
+    color: #b0c4de;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.footer .footer-col a:hover {
+    color: #ffc107;
+    text-decoration: underline;
+}
+
+.footer .footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 15px 0 12px;
+}
+
+.footer .footer-bottom {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #8899bb;
+    padding-top: 8px;
+}
+
+.footer .footer-bottom .coracao {
+    color: #ff6b6b;
+}
+
+@media (max-width: 768px) {
+    .header-projeto h1 {
+        font-size: 1.1rem;
+    }
+    .header-projeto .subtitulo {
+        font-size: 0.9rem;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .footer .footer-conteudo {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer .footer-col {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-projeto {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    .header-projeto h1 {
+        font-size: 0.95rem;
+    }
+    .header-projeto .subtitulo {
+        font-size: 0.8rem;
+    }
+    .header-projeto .subtitulo .turma {
+        font-size: 0.8rem;
+        padding: 1px 12px;
+    }
+    .footer {
+        padding: 18px 15px;
+        border-radius: 12px;
+    }
+}
+
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header"><h1>📐 Quadro Interativo - Turma B</h1></div>
+
+     <h2>
+        A Avaliação Diagnóstica fundamentada nos descritores do Saeb 
+        <span class="destaque">como instrumento de mapeamento e superação</span>
+        das defasagens matemáticas do 5º ano do Ensino Fundamental
+    </h2>
+    <!-- LINHA DIVISÓRIA -->
+    <hr style="border: 1px solid #ccc; margin: 20px 0;">
+    <div class="subtitulo">
+        <span>UNIVESP – Projeto Integrador V</span>
+        <span class="turma">🎯 Turma A <span class="badge">matutino</span></span>
+    </div>
+
+<!-- LINHA DIVISÓRIA -->
+    <hr style="border: 1px solid #ccc; margin: 20px 0;">
 
     <!-- BLOCO 1 -->
     <div class="block">
@@ -241,6 +416,43 @@
             <div id="infoLivreB">Clique nos quadrados para começar a desenhar.</div>
         </div>
     </div>
+
+    <!-- ===== RODAPÉ ===== -->
+<footer class="footer">
+    <div class="footer-conteudo">
+        <div class="footer-col">
+            <h4>📚 Projeto Integrador V</h4>
+            <p>
+                Universidade Virtual do Estado de São Paulo (UNIVESP)<br>
+                Eixo das Licenciaturas – Pedagogia, Letras e Matemática<br>
+                Tutor: Lucas Conelian de Oliveira
+            </p>
+        </div>
+        <div class="footer-col">
+            <h4>👥 Equipe</h4>
+            <p>
+                Antonio Antunes Junior · Giovani Machado de Lima<br>
+                Lilian Maria de Souza · Priscilla Santiago Zamorra<br>
+                Renata Helena Arantes e Oliveira · Rodrigo Aires de Medeiros Correa<br>
+                Sergio Eric Reis de Oliveira · Vitor Correa Uberti
+            </p>
+        </div>
+        <div class="footer-col">
+            <h4>🔗 Links</h4>
+            <p>
+                <a href="https://github.com/profsergioericmatematica/Recomposicao_5_ano_B" target="_blank">📦 Repositório no GitHub</a><br>
+                
+                
+                <a href="https://profsergioericmatematica.github.io/Recomposicao_5_ano_B/" target="_blank">🌐 Site – Turma B</a>
+            </p>
+        </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+        Guaratinguetá, Lagoinha, Taubaté e São José dos Campos – SP, 2026 &nbsp;·&nbsp;
+        Feito com <span class="coracao">♥</span> para a educação pública
+    </div>
+</footer>
 </div>
 
 <script>
