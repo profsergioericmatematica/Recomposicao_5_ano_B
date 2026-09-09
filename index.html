@@ -245,48 +245,42 @@
                     </div>
                     <div class="canvas-controls">
                         <button onclick="iniciarPerimetroB()" aria-label="Contar contorno">Contar Contorno</button>
-                        <button onclick="iniciarAreaB()" aria-label="Contar área">Contar Área</button>
                         <button class="reset" onclick="resetarCanvasB()" aria-label="Reiniciar tudo">Reiniciar Tudo</button>
                     </div>
                     <div id="infoCanvasB">Clique em uma figura</div>
                 </div>
                 <table class="tabela-resultados">
-                    <thead><tr><th>Figura</th><th>Perímetro</th><th>Área</th></tr></thead>
+                    <thead><tr><th>Figura</th><th>Perímetro</th></tr></thead>
                     <tbody>
-                        <tr id="linhaB_A"><td>A</td><td id="perB_A">-</td><td id="areaB_A">-</td></tr>
-                        <tr id="linhaB_B"><td>B</td><td id="perB_B">-</td><td id="areaB_B">-</td></tr>
-                        <tr id="linhaB_C"><td>C</td><td id="perB_C">-</td><td id="areaB_C">-</td></tr>
-                        <tr id="linhaB_D"><td>D</td><td id="perB_D">-</td><td id="areaB_D">-</td></tr>
+                        <tr id="linhaB_A"><td>A</td><td id="perB_A">-</td></tr>
+                        <tr id="linhaB_B"><td>B</td><td id="perB_B">-</td></tr>
+                        <tr id="linhaB_C"><td>C</td><td id="perB_C">-</td></tr>
+                        <tr id="linhaB_D"><td>D</td><td id="perB_D">-</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
         <h3>2. Estimativa de Altura (Q12)</h3>
-        <div class="exemplo-box">
-            <strong>Entre 100 cm e 200 cm:</strong>
-            <button class="btn-revelar" aria-label="Mostrar animação da altura" onclick="toggleResposta(this)">▶ Animação</button>
-            <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
-            <div class="dica-texto">Use o ponto médio: some os valores e divida por 2.</div>
-            <div class="resposta">
-                <div class="svg-container">
-                    <svg viewBox="0 0 200 250" width="200" height="250">
-                        <rect x="80" y="20" width="30" height="200" fill="#f5f5f5" stroke="#333" stroke-width="2" />
-                        <line x1="80" y1="20" x2="110" y2="20" stroke="#333" stroke-width="2" />
-                        <line x1="80" y1="220" x2="110" y2="220" stroke="#333" stroke-width="2" />
-                        <line x1="80" y1="120" x2="110" y2="120" stroke="#333" stroke-width="2" stroke-dasharray="4,4" />
-                        <text x="130" y="25" font-size="14" fill="#000">200 cm</text>
-                        <text x="130" y="125" font-size="14" fill="#000">150 cm</text>
-                        <text x="130" y="225" font-size="14" fill="#000">100 cm</text>
-                        <circle cx="95" cy="120" r="8" fill="#ff5722">
-                            <animate attributeName="cy" from="20" to="120" dur="1.5s" fill="freeze" />
-                        </circle>
-                        <text x="40" y="125" font-size="16" fill="#003366" font-weight="bold" opacity="0">150 cm<animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.5s" fill="freeze" /></text>
-                    </svg>
-                </div>
-                \((200 + 100) \div 2 = \mathbf{150 \text{ cm}}\)
+<div class="exemplo-box">
+    <strong>Entre 100 cm e 200 cm:</strong>
+    <button class="btn-revelar" aria-label="Mostrar animação da altura" onclick="toggleResposta(this); setTimeout(function(){ desenharBaseAltura(); }, 50);">▶ Animação</button>
+    <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
+    <div class="dica-texto">Use o ponto médio: some os valores e divida por 2.</div>
+    <div class="resposta">
+        <div class="canvas-container">
+            <canvas id="canvasQ12" width="600" height="400"></canvas>
+            <div class="canvas-controls">
+                <button onclick="animarAltura()" aria-label="Reproduzir animação">▶ Reproduzir</button>
+                <button class="reset" onclick="resetarAltura()" aria-label="Reiniciar">Reiniciar</button>
             </div>
+            <div id="infoQ12">Clique em "Reproduzir" para ver a estimativa.</div>
         </div>
+        <div style="font-size:1.2rem; margin-top:10px; text-align:center;">
+            \((200 + 100) \div 2 = \mathbf{150 \text{ cm}}\)
+        </div>
+    </div>
+</div>
 
         <h3>3. Conversão cm → mm (Q22)</h3>
         <div class="exemplo-box">
@@ -314,14 +308,14 @@
         <h3>1. Propriedades do Quadrado (Q21)</h3>
         <div class="exemplo-box">
             <strong>Figura que satisfaz isso:</strong>
-            <button class="btn-revelar" aria-label="Mostrar animação do quadrado" onclick="toggleResposta(this)">▶ Animação</button>
+            <button class="btn-revelar" aria-label="Mostrar animação do quadrado" onclick="toggleResposta(this); setTimeout(function(){ resetarQuadradoQ21('B'); }, 50);">▶ Animação</button>
             <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
             <div class="dica-texto">Quadrado tem 4 lados iguais e 4 ângulos retos.</div>
             <div class="resposta">
                 <div class="canvas-container">
                     <canvas id="canvasQ21B" width="250" height="250"></canvas>
                     <div class="canvas-controls">
-                        <button onclick="girarQuadradoQ21('B')" aria-label="Girar 45 graus">▶ Girar 45°</button>
+                        <button id="btnGirarQuadradoB" onclick="girarQuadradoQ21('B')" aria-label="Girar 45 graus">▶ Girar 45°</button>
                         <button class="reset" onclick="resetarQuadradoQ21('B')" aria-label="Reiniciar">Reiniciar</button>
                     </div>
                     <div id="infoQ21B">Clique em "Girar"</div>
@@ -456,6 +450,7 @@
 </div>
 
 <script>
+var quadradoRotacionado = false;
 // =====================================================================
 // 1. FUNÇÕES GERAIS
 // =====================================================================
@@ -577,6 +572,258 @@ function desenharBase(ctx, estado) {
         for (let p of data.passos) { ctx.beginPath(); ctx.moveTo(offset + p.x1 * escala, offset + p.y1 * escala); ctx.lineTo(offset + p.x2 * escala, offset + p.y2 * escala); ctx.stroke(); }
     }
 }
+
+
+// =====================================================================
+// 2.5 ESTIMATIVA DE ALTURA (Q12) - VERSÃO COM RÉGUA 0-200 E BONECO FIXO
+// =====================================================================
+let animacaoAltura = null;
+let startTime = null;
+const duracaoAnimacao = 5500;
+
+const canvasQ12 = document.getElementById('canvasQ12');
+const info = document.getElementById('infoQ12');
+
+// Posições da régua (canvas 500x450)
+const xRuler = 60;
+const yTop = 50;
+const yBottom = 390;
+const heightRuler = yBottom - yTop;
+const xPersonagem = 250;
+
+function desenharRégua(ctx, t = 0) {
+    // Fundo da régua
+    ctx.fillStyle = '#e8f0fe';
+    ctx.fillRect(xRuler, yTop, 30, heightRuler);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(xRuler, yTop, 30, heightRuler);
+
+    // Marcas da régua (0 a 200 cm, a cada 10 cm)
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+
+    for (let v = 0; v <= 200; v += 10) {
+        const frac = v / 200;
+        const y = yBottom - frac * heightRuler;
+        ctx.beginPath();
+        ctx.moveTo(xRuler, y);
+        
+        // Traço maior para múltiplos de 20, 100 e 200
+        if (v % 20 === 0 || v === 100 || v === 200 || v === 0) {
+            ctx.lineTo(xRuler + 15, y);
+            ctx.font = 'bold 12px Arial';
+            if (v === 100 || v === 200) {
+                ctx.fillStyle = '#003366';
+            } else {
+                ctx.fillStyle = '#333';
+            }
+            ctx.fillText(v + ' cm', xRuler - 8, y);
+        } 
+        // Traço médio para múltiplos de 10 (110, 130, 150, 170, 190)
+        else if (v % 10 === 0) {
+            ctx.lineTo(xRuler + 10, y);
+            ctx.font = '10px Arial';
+            ctx.fillStyle = '#555';
+            ctx.fillText(v + '', xRuler - 6, y);
+        }
+        // Traço menor para outros (não usado, pois já temos de 10 em 10)
+        ctx.stroke();
+    }
+
+    // Destaque para 100 e 200
+    const y100 = yBottom - (100/200) * heightRuler;
+    const y200 = yTop;
+    ctx.fillStyle = '#003366';
+    ctx.font = 'bold 14px Arial';
+    ctx.textAlign = 'left';
+    ctx.fillText('▼ 100 cm', xRuler + 35, y100);
+    ctx.fillText('▼ 200 cm', xRuler + 35, y200);
+
+    // Título
+    ctx.fillStyle = '#003366';
+    ctx.font = 'bold 16px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText('Estimativa de Altura (entre 100 e 200 cm)', canvasQ12.width / 2, 10);
+
+    // Marca especial para 150 (ponto médio) - aparece no final da animação
+    const yMid = yBottom - (150/200) * heightRuler;
+    if (t > 0.8) {
+        const alpha = Math.min(1, (t - 0.8) * 10);
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = '#d32f2f';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([6, 6]);
+        ctx.beginPath();
+        ctx.moveTo(xRuler - 20, yMid);
+        ctx.lineTo(xRuler + 160, yMid);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#d32f2f';
+        ctx.textAlign = 'left';
+        ctx.font = 'bold 16px Arial';
+        ctx.fillText('▶', xRuler + 35, yMid - 8);
+
+        ctx.fillText('150 cm (ponto médio)', xRuler + 50, yMid - 18);
+        ctx.globalAlpha = 1.0;
+    }
+}
+function desenharPersonagem(ctx, x, yPes) {
+    // yPes = posição dos pés (0 cm) = yBottom
+    // Altura total do boneco = 150 cm = (150/200) * heightRuler
+    const alturaBonecoPixels = (150 / 200) * heightRuler - 20;
+
+    // Escala baseada no boneco original (60px de altura)
+    const escala = alturaBonecoPixels / 60;
+
+    // Sombra
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(x, yPes + 5, 20 * escala, 6 * escala, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Pernas
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2 * escala;
+    ctx.beginPath();
+    ctx.moveTo(x - 5 * escala, yPes - 10 * escala);
+    ctx.lineTo(x - 5 * escala, yPes);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x + 5 * escala, yPes - 10 * escala);
+    ctx.lineTo(x + 5 * escala, yPes);
+    ctx.stroke();
+
+    // Corpo
+    ctx.fillStyle = '#4a90d9';
+    ctx.fillRect(x - 12 * escala, yPes - 38 * escala, 24 * escala, 28 * escala);
+    ctx.strokeStyle = '#2c5a8a';
+    ctx.lineWidth = 1.5 * escala;
+    ctx.strokeRect(x - 12 * escala, yPes - 38 * escala, 24 * escala, 28 * escala);
+
+    // Braços
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2 * escala;
+    ctx.beginPath();
+    ctx.moveTo(x - 12 * escala, yPes - 30 * escala);
+    ctx.lineTo(x - 22 * escala, yPes - 18 * escala);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x + 12 * escala, yPes - 30 * escala);
+    ctx.lineTo(x + 22 * escala, yPes - 18 * escala);
+    ctx.stroke();
+
+    // Cabeça
+    ctx.beginPath();
+    ctx.arc(x, yPes - 50 * escala, 14 * escala, 0, 2 * Math.PI);
+    ctx.fillStyle = '#f9d5b0';
+    ctx.fill();
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 1.5 * escala;
+    ctx.stroke();
+
+    // Rosto
+    ctx.fillStyle = '#333';
+    ctx.lineWidth = 1 * escala;
+    ctx.beginPath();
+    ctx.arc(x - 5 * escala, yPes - 53 * escala, 2 * escala, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x + 5 * escala, yPes - 53 * escala, 2 * escala, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x, yPes - 48 * escala, 6 * escala, 0.2 * Math.PI, 0.8 * Math.PI, false);
+    ctx.stroke();
+}
+
+function desenharTextosEducativos(ctx, t) {
+    const xText = 400;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+
+    if (t > 0.1) {
+        ctx.fillStyle = '#555';
+        ctx.font = '15px Arial';
+        ctx.fillText('Extremos conhecidos:', xText, 110);
+        ctx.fillText('• Altura Mínima: 100 cm', xText, 140);
+        ctx.fillText('• Altura Máxima: 200 cm', xText, 170);
+    }
+
+    if (t > 0.3) {
+        ctx.fillStyle = '#003366';
+        ctx.font = 'bold 16px Arial';
+        ctx.fillText('Cálculo da Média:', xText, 220);
+        ctx.fillText('(Mínimo + Máximo) ÷ 2', xText, 250);
+    }
+
+    if (t > 0.45) {
+        ctx.fillStyle = '#e67e22';
+        ctx.font = 'bold 16px Arial';
+        ctx.fillText('= (100 + 200) ÷ 2', xText, 290);
+        ctx.fillText('= 300 ÷ 2', xText, 320);
+    }
+
+    if (t > 0.8) {
+        ctx.fillStyle = '#d32f2f';
+        ctx.font = 'bold 20px Arial';
+        const yMid = yBottom - (150/200) * heightRuler;
+        ctx.fillText('➡ Média = 150 cm', xText, yMid + 220);
+    }
+}
+
+function frameAnimacao(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    let t = Math.min(elapsed / duracaoAnimacao, 1);
+
+    const ctx = canvasQ12.getContext('2d');
+    ctx.clearRect(0, 0, canvasQ12.width, canvasQ12.height);
+
+    // Boneco fixo com pés em 0 cm (yBottom) e cabeça em 150 cm
+    const yPes = yBottom; // 0 cm
+
+    desenharRégua(ctx, t);
+    desenharTextosEducativos(ctx, t);
+    desenharPersonagem(ctx, xPersonagem, yPes);
+
+    if (t < 0.3) {
+        info.textContent = 'Avaliando os limites: 100 cm e 200 cm...';
+    } else if (t < 0.6) {
+        info.textContent = 'A média é a soma dividida por 2...';
+    } else if (t < 0.8) {
+        info.textContent = 'Encontrando o ponto médio...';
+    } else {
+        info.textContent = '✅ A altura média estimada é 150 cm!';
+    }
+
+    if (t < 1) {
+        animacaoAltura = requestAnimationFrame(frameAnimacao);
+    } else {
+        animacaoAltura = null;
+    }
+}
+
+function animarAltura() {
+    if (!canvasQ12) return;
+    if (animacaoAltura) cancelAnimationFrame(animacaoAltura);
+    startTime = null;
+    animacaoAltura = requestAnimationFrame(frameAnimacao);
+}
+
+function resetarAltura() {
+    if (animacaoAltura) {
+        cancelAnimationFrame(animacaoAltura);
+        animacaoAltura = null;
+    }
+    startTime = null;
+    info.textContent = 'Clique em "Reproduzir" para estimar a altura.';
+    const ctx = canvasQ12.getContext('2d');
+    ctx.clearRect(0, 0, canvasQ12.width, canvasQ12.height);
+    desenharRégua(ctx, 0);
+    desenharPersonagem(ctx, xPersonagem, yBottom);
+}
+
 
 function atualizarTabela(figura, tipo, valor) {
     let idElemento = (tipo === 'perimetro' ? 'perB_' : 'areaB_') + figura;
@@ -753,47 +1000,119 @@ function resetarLupaQ22B() {
 // =====================================================================
 // 5. QUADRADO (Q21)
 // =====================================================================
-function girarQuadradoQ21(turma) {
+function resetarQuadradoQ21(turma) {
     var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
     var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     var info = document.getElementById(infoId);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.save();
-    ctx.translate(125, 125);
-    ctx.rotate(Math.PI / 4);
+    
+    // Desenha o quadrado sem rotação
+    var x = 45, y = 45, lado = 160;
     ctx.fillStyle = '#e3f2fd';
     ctx.strokeStyle = '#0077be';
     ctx.lineWidth = 4;
-    ctx.fillRect(-80, -80, 160, 160);
-    ctx.strokeRect(-80, -80, 160, 160);
-    ctx.strokeStyle = '#003366';
+    ctx.fillRect(x, y, lado, lado);
+    ctx.strokeRect(x, y, lado, lado);
+    
+    // Símbolos de ângulo reto
+    var tam = 15;
+    ctx.strokeStyle = '#d32f2f';
     ctx.lineWidth = 2;
-    ctx.strokeRect(-80, -80, 20, 20);
-    ctx.strokeRect(60, -80, 20, 20);
-    ctx.strokeRect(-80, 60, 20, 20);
-    ctx.strokeRect(60, 60, 20, 20);
-    ctx.restore();
+    ctx.strokeRect(x + 5, y + 5, tam, tam);
+    ctx.strokeRect(x + lado - tam - 5, y + 5, tam, tam);
+    ctx.strokeRect(x + 5, y + lado - tam - 5, tam, tam);
+    ctx.strokeRect(x + lado - tam - 5, y + lado - tam - 5, tam, tam);
+    
+    // Texto "Quadrado" abaixo
     ctx.fillStyle = '#003366';
     ctx.font = 'bold 18px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('Quadrado', 125, 130);
-    info.textContent = "Girou 45°!";
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Quadrado', 125, 125);
+    
+    // Atualiza estado
+    quadradoRotacionado = false;
+    var botao = document.getElementById('btnGirarQuadrado' + turma);
+    if (botao) botao.textContent = '▶ Girar 45°';
+    info.textContent = "Clique em 'Girar 45°' para ver a rotação.";
 }
 
-function resetarQuadradoQ21(turma) {
+function girarQuadradoQ21(turma) {
     var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
+    var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
+    var info = document.getElementById(infoId);
+    var botao = document.getElementById('btnGirarQuadrado' + turma);
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#e3f2fd';
-    ctx.strokeStyle = '#0077be';
-    ctx.lineWidth = 4;
-    ctx.fillRect(45, 45, 160, 160);
-    ctx.strokeRect(45, 45, 160, 160);
+    
+    var lado = 160;
+    var x, y;
+    
+    if (!quadradoRotacionado) {
+        // Rotaciona 45°
+        ctx.save();
+        ctx.translate(125, 125);
+        ctx.rotate(Math.PI / 4);
+        x = -lado/2;
+        y = -lado/2;
+        ctx.fillStyle = '#e3f2fd';
+        ctx.strokeStyle = '#0077be';
+        ctx.lineWidth = 4;
+        ctx.fillRect(x, y, lado, lado);
+        ctx.strokeRect(x, y, lado, lado);
+        
+        // Ângulos retos (rotacionados)
+        var tam = 15;
+        ctx.strokeStyle = '#d32f2f';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x + 5, y + 5, tam, tam);
+        ctx.strokeRect(x + lado - tam - 5, y + 5, tam, tam);
+        ctx.strokeRect(x + 5, y + lado - tam - 5, tam, tam);
+        ctx.strokeRect(x + lado - tam - 5, y + lado - tam - 5, tam, tam);
+        
+        ctx.restore();
+        // Texto após rotação (agora embaixo do quadrado)
+        ctx.fillStyle = '#003366';
+        ctx.font = 'bold 18px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillText('Quadrado (45°)', 125, 125);
+        
+        quadradoRotacionado = true;
+        if (botao) botao.textContent = '🔄 Voltar 0°';
+        info.textContent = "Girou 45°! Clique em 'Voltar 0°' para retornar.";
+    } else {
+        // Volta à posição inicial
+        ctx.fillStyle = '#e3f2fd';
+        ctx.strokeStyle = '#0077be';
+        ctx.lineWidth = 4;
+        x = 45; y = 45;
+        ctx.fillRect(x, y, lado, lado);
+        ctx.strokeRect(x, y, lado, lado);
+        
+        var tam = 15;
+        ctx.strokeStyle = '#d32f2f';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x + 5, y + 5, tam, tam);
+        ctx.strokeRect(x + lado - tam - 5, y + 5, tam, tam);
+        ctx.strokeRect(x + 5, y + lado - tam - 5, tam, tam);
+        ctx.strokeRect(x + lado - tam - 5, y + lado - tam - 5, tam, tam);
+        
+        ctx.fillStyle = '#003366';
+        ctx.font = 'bold 18px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Quadrado', 125, 125);
+        
+        quadradoRotacionado = false;
+        if (botao) botao.textContent = '▶ Girar 45°';
+        info.textContent = "Voltou à posição inicial.";
+    }
 }
-
 // =====================================================================
 // 6. PORCENTAGEM
 // =====================================================================
