@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quadro Interativo - Turma B</title>
+    <title>Recomposição de Matemática – 5º Ano - Turma B</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,9 +31,9 @@
         .canvas-controls button:hover { background: #0056b3; }
         .canvas-controls button.reset { background: #dc3545; }
         .canvas-controls button.reset:hover { background: #c82333; }
-        #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
-            font-size: 18px; font-weight: bold; color: #003366; margin-top: 10px; text-align: center;
-        }
+        #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ17B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
+    font-size: 18px; font-weight: bold; color: #003366; margin-top: 10px; text-align: center;
+}
         canvas { border: 1px solid #ccc; background-color: white; max-width: 100%; height: auto; display: block; }
         .tabela-resultados { margin: 15px auto; border-collapse: collapse; width: 90%; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
         .tabela-resultados th, .tabela-resultados td { border: 1px solid #ddd; padding: 8px; text-align: center; }
@@ -461,7 +461,7 @@ body { font-size: 17px; }
 .btn-ver-resposta { font-size: 0.95rem; } /* escape: link discreto */
 
 #infoCanvas, #infoQ22, #infoTeoriaPorcA, #infoQ17, #infoQ21, #infoQ13, #infoQ24, #infoLivreA,
-#infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
+#infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ17B, #infoQ8, #infoQ19, #infoU, #infoLivreB, #infoQ12 {
     font-size: 1.1rem;
 }
 
@@ -659,8 +659,27 @@ body { font-size: 17px; }
             
             <div><strong>Q15 (Retângulo):</strong>     <button class="btn-imagem" onclick="abrirModal('Q15')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
 <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">P = 50 m</div></div>
-            <div><strong>Q17 (Trapézio):</strong>     <button class="btn-imagem" onclick="abrirModal('Q17')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
-<button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">AB e CD (paralelos)</div></div>
+
+
+           <div style="grid-column: 1 / -1;">
+    <strong>Q17 (Trapézio):</strong>
+    <button class="btn-imagem" onclick="abrirModal('Q17')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
+    <button class="btn-revelar" aria-label="Mostrar trapézios" onclick="toggleResposta(this); setTimeout(function(){ animarTrapezioQ17B(); }, 50);">▶ Animação</button>
+    <div class="resposta">
+        <div class="canvas-container">
+            <canvas id="canvasQ17B" width="750" height="250"></canvas>
+            <div class="canvas-controls">
+                <button onclick="toggleParalelasTrapezioB()" aria-label="Ver paralelas">▶ Ver Paralelas</button>
+                <button class="reset" onclick="resetarTrapezioQ17B()" aria-label="Reiniciar">Reiniciar</button>
+            </div>
+            <div id="infoQ17B">Dois trapézios. Clique em 'Ver Paralelas' para destacar.</div>
+        </div>
+    </div>
+</div>
+
+
+
+
             <div><strong>Q13 (Divisão):</strong>    <button class="btn-imagem" onclick="abrirModal('Q13')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
  <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">3045 ÷ 3 = 1015</div></div>
             <div><strong>Q14 (50%):</strong>     <button class="btn-imagem" onclick="abrirModal('Q14')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
@@ -787,7 +806,8 @@ body { font-size: 17px; }
             <p>
                 Universidade Virtual do Estado de São Paulo (UNIVESP)<br>
                 Eixo das Licenciaturas – Pedagogia, Letras e Matemática<br>
-               
+              
+            </p>
         </div>
         <div class="footer-col">
             <h4>👥 Equipe</h4>
@@ -896,6 +916,123 @@ function conferirResposta(inputId, respostaCorreta, feedbackId, dicaErro) {
         fb.innerHTML = '💡 <strong>Quase!</strong> ' + dicaErro;
         setTimeout(() => input.classList.remove('errado'), 500);
     }
+}
+
+// =====================================================================
+// 7. TRAPÉZIO (Q17) - Turma B
+// =====================================================================
+var paralelasVisiveisB = false;
+
+function desenharTrapeziosQ17B(ctx, canvas) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // ===== Trapézio 1 (comum) =====
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(80, 60);
+    ctx.lineTo(240, 60);
+    ctx.lineTo(280, 200);
+    ctx.lineTo(40, 200);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 16px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('A', 70, 45);
+    ctx.fillText('B', 250, 45);
+    ctx.fillText('C', 295, 210);
+    ctx.fillText('D', 25, 210);
+
+    ctx.fillStyle = '#555';
+    ctx.font = 'bold 14px Arial';
+    ctx.fillText('Trapézio comum', 160, 235);
+
+    // ===== Trapézio 2 (retângulo) =====
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(460, 60);   // A
+    ctx.lineTo(590, 60);   // B
+    ctx.lineTo(650, 200);  // C
+    ctx.lineTo(460, 200);  // D
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 16px Arial';
+    ctx.fillText('A', 445, 45);
+    ctx.fillText('B', 600, 45);
+    ctx.fillText('C', 665, 210);
+    ctx.fillText('D', 445, 210);
+
+    // Marcadores de ângulo reto em A e D
+    var tam = 15;
+    ctx.strokeStyle = '#d32f2f';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(460, 60, tam, tam);
+    ctx.strokeRect(460, 200 - tam, tam, tam);
+
+    ctx.fillStyle = '#555';
+    ctx.font = 'bold 14px Arial';
+    ctx.fillText('Trapézio retângulo', 555, 235);
+}
+
+function animarTrapezioQ17B() {
+    var canvas = document.getElementById('canvasQ17B');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var info = document.getElementById('infoQ17B');
+    desenharTrapeziosQ17B(ctx, canvas);
+    paralelasVisiveisB = false;
+    if (info) info.textContent = "Dois trapézios. Clique em 'Ver Paralelas' para destacar.";
+}
+
+function toggleParalelasTrapezioB() {
+    var canvas = document.getElementById('canvasQ17B');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var info = document.getElementById('infoQ17B');
+
+    desenharTrapeziosQ17B(ctx, canvas);
+
+    paralelasVisiveisB = !paralelasVisiveisB;
+    if (paralelasVisiveisB) {
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 5]);
+
+        // Paralelas do trapézio 1
+        ctx.strokeStyle = '#e74c3c';
+        ctx.beginPath(); ctx.moveTo(0, 60);   ctx.lineTo(320, 60);  ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(400, 60); ctx.lineTo(700, 60);  ctx.stroke();
+
+        // Paralelas do trapézio 2
+        ctx.strokeStyle = '#3498db';
+        ctx.beginPath(); ctx.moveTo(0, 200);   ctx.lineTo(320, 200); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(400, 200); ctx.lineTo(700, 200); ctx.stroke();
+
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = '#e74c3c';
+        ctx.font = 'bold 14px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('AB (paralelo)', 160, 48);
+        ctx.fillText('AB (paralelo)', 520, 48);
+
+        ctx.fillStyle = '#3498db';
+        ctx.fillText('DC (paralelo)', 160, 218);
+        ctx.fillText('DC (paralelo)', 520, 218);
+
+        if (info) info.textContent = "AB ∥ DC nos dois. No 2º, os ângulos em A e D são retos (90°).";
+    } else {
+        if (info) info.textContent = "Paralelas ocultadas.";
+    }
+}
+
+function resetarTrapezioQ17B() {
+    animarTrapezioQ17B();
 }
 
 function tocarSomSucesso() {
