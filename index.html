@@ -558,7 +558,7 @@ body { font-size: 17px; }
 <div class="exemplo-box">
     <strong>Entre 140 cm e 170 cm:</strong>
     <button class="btn-imagem" onclick="abrirModal('Q12')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
-    <button class="btn-revelar" aria-label="Mostrar animação da altura" onclick="toggleResposta(this); setTimeout(function(){ desenharBaseAltura(); }, 50);">▶ Animação</button>
+    <button class="btn-revelar" aria-label="Mostrar animação da altura" onclick="toggleResposta(this); setTimeout(function(){ resetarAltura(); }, 50);">▶ Animação</button>
     <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
     <div class="dica-texto">Use o ponto médio: some os valores e divida por 2.</div>
     <div class="resposta">
@@ -598,7 +598,7 @@ body { font-size: 17px; }
     </div>
 </section>
     <!-- BLOCO 2 -->
-     <section class="tela ativa" data-tela="2">
+     <section class="tela" data-tela="2">
     <div class="block">
 
 
@@ -648,7 +648,7 @@ body { font-size: 17px; }
     </div>
 </section>
     <!-- PINCELADA RÁPIDA -->
-     <section class="tela ativa" data-tela="3">
+     <section class="tela" data-tela="3">
     <div class="block">
         <h2>⚡ Pincelada Rápida – Conteúdos de Atenção</h2>
         <div class="pincelada-grid">
@@ -688,7 +688,7 @@ body { font-size: 17px; }
     </div>
 </section>
     <!-- TREINO EM DUPLA -->
-     <section class="tela ativa" data-tela="4">
+     <section class="tela" data-tela="4">
     <div class="block">
         <h2>✏️ Treino em Dupla (Turma B)</h2>
         <ol>
@@ -747,7 +747,7 @@ body { font-size: 17px; }
     </div>
 </section>
     <!-- EXTRA -->
-     <section class="tela ativa" data-tela="5">
+     <section class="tela" data-tela="5">
     <div class="block">
         <h2>✨ Extra: Malha Interativa Livre (Crie sua Figura)</h2>
         <div class="canvas-container">
