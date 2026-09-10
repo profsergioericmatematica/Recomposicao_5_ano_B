@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -256,17 +256,246 @@
     transform: scale(1.03);
 }
 
+/* ===== CAIXINHA DE RESPOSTA (Treino em Dupla) ===== */
+.caixinha-resposta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 6px 0 6px 8px;
+    flex-wrap: wrap;
+    vertical-align: middle;
+}
+.caixinha-resposta input {
+    width: 90px;
+    padding: 7px 10px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: #003366;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.caixinha-resposta input:focus {
+    outline: none;
+    border-color: #ff9800;
+    box-shadow: 0 0 0 3px rgba(255,152,0,0.25);
+}
+.caixinha-resposta input.correto {
+    border-color: #28a745;
+    background: #d4edda;
+    color: #155724;
+}
+.caixinha-resposta input.errado {
+    border-color: #dc3545;
+    background: #f8d7da;
+    animation: tremer 0.4s;
+}
+@keyframes tremer {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-5px); }
+    75%      { transform: translateX(5px); }
+}
+.caixinha-resposta .unidade {
+    font-weight: bold;
+    color: #003366;
+    font-size: 1rem;
+}
+.btn-conferir {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+.btn-conferir:hover {
+    background: #218838;
+    transform: scale(1.03);
+}
+.feedback-treino {
+    display: none;
+    margin: 6px 0 4px 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    max-width: 560px;
+    line-height: 1.4;
+}
+.feedback-treino.visible { display: block; }
+.feedback-treino.ok {
+    background: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+.feedback-treino.erro {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 4px solid #ffc107;
+}
+.btn-ver-resposta {
+    background: transparent;
+    color: #6c757d;
+    border: 1px dashed #adb5bd;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin: 4px 0 4px 8px;
+}
+.btn-ver-resposta:hover {
+    color: #003366;
+    border-color: #003366;
+}
+/* ===== MASCOTE CORUJA (aparece em toda dica) ===== */
+.dica-texto {
+    position: relative;
+    padding-left: 66px !important;
+    min-height: 46px;
+}
+.dica-texto::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpolygon points='12,22 18,8 24,22' fill='%23f4a742'/%3E%3Cpolygon points='48,22 42,8 36,22' fill='%23f4a742'/%3E%3Cellipse cx='30' cy='38' rx='21' ry='22' fill='%23f4a742'/%3E%3Cellipse cx='30' cy='40' rx='14' ry='17' fill='%23fdd79a'/%3E%3Ccircle cx='21' cy='30' r='8.5' fill='%23ffffff'/%3E%3Ccircle cx='39' cy='30' r='8.5' fill='%23ffffff'/%3E%3Ccircle cx='22' cy='30' r='4.5' fill='%23003366'/%3E%3Ccircle cx='40' cy='30' r='4.5' fill='%23003366'/%3E%3Ccircle cx='23.5' cy='28.5' r='1.6' fill='%23ffffff'/%3E%3Ccircle cx='41.5' cy='28.5' r='1.6' fill='%23ffffff'/%3E%3Cpolygon points='30,36 26.5,42 33.5,42' fill='%23e67e22'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: corujaPiscar 4s ease-in-out infinite;
+}
+@keyframes corujaPiscar {
+    0%, 92%, 100% { transform: translateY(-50%) scale(1); }
+    95%           { transform: translateY(-50%) scale(1.06); }
+}
+/* A coruja também no título de cada bloco */
+.block h2::before {
+    content: "";
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    vertical-align: -8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpolygon points='12,22 18,8 24,22' fill='%23f4a742'/%3E%3Cpolygon points='48,22 42,8 36,22' fill='%23f4a742'/%3E%3Cellipse cx='30' cy='38' rx='21' ry='22' fill='%23f4a742'/%3E%3Cellipse cx='30' cy='40' rx='14' ry='17' fill='%23fdd79a'/%3E%3Ccircle cx='21' cy='30' r='8.5' fill='%23ffffff'/%3E%3Ccircle cx='39' cy='30' r='8.5' fill='%23ffffff'/%3E%3Ccircle cx='22' cy='30' r='4.5' fill='%23003366'/%3E%3Ccircle cx='40' cy='30' r='4.5' fill='%23003366'/%3E%3Cpolygon points='30,36 26.5,42 33.5,42' fill='%23e67e22'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+/* ===== NAVEGAÇÃO ENTRE TELAS ===== */
+.tela { display: none; animation: fadeIn 0.35s ease-in; }
+.tela.ativa { display: block; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 
+.nav-telas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0 25px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #eef4fa 0%, #e3f2fd 100%);
+    border-radius: 14px;
+    border: 2px dashed #0077be;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,51,102,0.08);
+}
+.nav-telas .indicador {
+    font-weight: 700;
+    color: #003366;
+    font-size: 1rem;
+    text-align: center;
+    flex: 1;
+}
+.nav-telas button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+    min-height: 48px;
+}
+.nav-telas button:hover:not(:disabled) {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+.nav-telas button:disabled {
+    background: #b0c4de;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+@media (max-width: 480px) {
+    .nav-telas { padding: 10px; gap: 6px; }
+    .nav-telas button { padding: 10px 14px; font-size: 0.95rem; }
+    .nav-telas .indicador { font-size: 0.9rem; }
+}
+
+/* ===== ACESSIBILIDADE — fonte mínima 16px ===== */
+body { font-size: 17px; }
+
+.btn-revelar, .btn-dica, .btn-imagem, .btn-conferir,
+.canvas-controls button {
+    font-size: 1rem; /* 17px por causa do body acima */
+}
+
+.exemplo-box { font-size: 1.05rem; }
+.dica-texto { font-size: 1rem; line-height: 1.5; }
+.resposta  { font-size: 1rem; }
+.tabela-resultados { font-size: 1rem; }
+.feedback-treino { font-size: 1rem; }
+.btn-ver-resposta { font-size: 0.95rem; } /* escape: link discreto */
+
+#infoCanvas, #infoQ22, #infoTeoriaPorcA, #infoQ17, #infoQ21, #infoQ13, #infoQ24, #infoLivreA,
+#infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
+    font-size: 1.1rem;
+}
+
+/* Mesmo no celular, mantém 16px no corpo */
+@media (max-width: 768px) {
+    body { font-size: 16px; }
+    .exemplo-box, .dica-texto, .resposta { font-size: 1rem; }
+    .btn-revelar, .btn-dica, .btn-imagem, .canvas-controls button, .btn-conferir {
+        font-size: 1rem;
+        min-height: 44px;
+    }
+    .tabela-resultados { font-size: 1rem; }
+    #infoCanvas, #infoQ22, #infoTeoriaPorcA, #infoQ17, #infoQ21, #infoQ13, #infoQ24, #infoLivreA,
+    #infoCanvasB, #infoQ22B, #infoTeoriaPorcB, #infoQ21B, #infoQ8, #infoQ19, #infoU, #infoLivreB {
+        font-size: 1rem;
+    }
+}
+
+.canvas-controls button:disabled,
+.canvas-controls button[disabled] {
+    background: #b0c4de !important;
+    cursor: not-allowed !important;
+    opacity: 0.55 !important;
+    pointer-events: none;
+    filter: grayscale(0.3);
+}
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="header"><h1>📐 Quadro Interativo - Turma B</h1></div>
+    <div class="header"><h1>📐 Recomposição de Matemática – 5º Ano - Turma B</h1></div>
 
      <h2>
-        A Avaliação Diagnóstica fundamentada nos descritores do Saeb 
-        <span class="destaque">como instrumento de mapeamento e superação</span>
-        das defasagens matemáticas do 5º ano do Ensino Fundamental
+         Retomada após avaliação diagnóstica · <span class="destaque">Descritores SAEB</span>
     </h2>
     <!-- LINHA DIVISÓRIA -->
     <hr style="border: 1px solid #ccc; margin: 20px 0;">
@@ -275,10 +504,19 @@
         <span class="turma">🎯 Turma B <span class="badge">vespertino</span></span>
     </div>
 
+
 <!-- LINHA DIVISÓRIA -->
-    <hr style="border: 1px solid #ccc; margin: 20px 0;">
+<hr style="border: 1px solid #ccc; margin: 20px 0;">
+
+<nav class="nav-telas">
+    <button class="btn-nav btn-anterior" onclick="irTela(-1)" aria-label="Tela anterior">◀ Anterior</button>
+    <span class="indicador indicador-tela">Tela 1 de 5</span>
+    <button class="btn-nav btn-proximo" onclick="irTela(1)" aria-label="Próxima tela">Próximo ▶</button>
+</nav>
+
 
     <!-- BLOCO 1 -->
+     <section class="tela ativa" data-tela="1">
     <div class="block">
         <h2>📏 Bloco 1 – Perímetro, Escala e Conversão</h2>
 
@@ -316,7 +554,7 @@
             </div>
         </div>
 
-        <h3>2. Estimativa de Altura (Q12)</h3>
+        <h3>2. 📏 Quanto mede o Pedro? (Q12)</h3>
 <div class="exemplo-box">
     <strong>Entre 140 cm e 170 cm:</strong>
     <button class="btn-imagem" onclick="abrirModal('Q12')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
@@ -358,9 +596,12 @@
             </div>
         </div>
     </div>
-
+</section>
     <!-- BLOCO 2 -->
+     <section class="tela ativa" data-tela="2">
     <div class="block">
+
+
         <h2>🧮 Bloco 2 – Geometria do Quadrado e Porcentagem</h2>
 
         <h3>1. Propriedades do Quadrado (Q21)</h3>
@@ -385,7 +626,7 @@
 
         <h3>2. Porcentagem (10%, 25%, 50% - Q18)</h3>
         <div class="exemplo-box">
-            <strong>Teoria das Porcentagens:</strong>
+            <strong>💯 Quanto é 50%?</strong>
                 <button class="btn-imagem" onclick="abrirModal('Q18')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
 
             <button class="btn-revelar" aria-label="Mostrar animação de porcentagem" onclick="toggleResposta(this)">▶ Animação</button>
@@ -405,8 +646,9 @@
             </div>
         </div>
     </div>
-
+</section>
     <!-- PINCELADA RÁPIDA -->
+     <section class="tela ativa" data-tela="3">
     <div class="block">
         <h2>⚡ Pincelada Rápida – Conteúdos de Atenção</h2>
         <div class="pincelada-grid">
@@ -444,35 +686,68 @@
             </div>
         </div>
     </div>
-
+</section>
     <!-- TREINO EM DUPLA -->
+     <section class="tela ativa" data-tela="4">
     <div class="block">
         <h2>✏️ Treino em Dupla (Turma B)</h2>
         <ol>
-            <li style="margin-bottom: 15px;">
-                <strong>1. Figura em U (perímetro):</strong>
-                <button class="btn-revelar" aria-label="Mostrar animação da figura U" onclick="toggleResposta(this)">▶ Animação</button>
-                <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
-                <div class="dica-texto">Conte os lados externos da figura. Perímetro = soma de todos os lados.</div>
-                <div class="resposta">
-                    <div class="canvas-container">
-                        <canvas id="canvasU" width="300" height="240"></canvas>
-                        <div class="canvas-controls">
-                            <button onclick="desenharBaseU()" aria-label="Desenhar U">Desenhar U</button>
-                            <button onclick="animarFiguraU()" aria-label="Contar perímetro">▶ Contar Perímetro</button>
-                            <button class="reset" onclick="resetarFiguraU()" aria-label="Reiniciar">Reiniciar</button>
-                        </div>
-                        <div id="infoU">Clique em "Desenhar U"</div>
-                    </div>
-                </div>
-            </li>
-            <li>Adulto entre 150 cm e 200 cm → <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">175 cm</div></li>
-            <li>3,6 cm em mm → <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">36 mm</div></li>
-            <li>25% de R$ 480,00 → <button class="btn-revelar" onclick="toggleResposta(this)" aria-label="Ver resposta">Ver</button><div class="resposta">R$ 120,00</div></li>
-        </ol>
+   <li style="margin-bottom: 15px;">
+     Figura em U (perímetro):
+    <div class="canvas-container" style="margin-top: 10px;">
+        <canvas id="canvasU" width="300" height="240"></canvas>
+        <div id="infoU">Conte os lados e escreva o perímetro abaixo. 👇</div>
     </div>
 
+    <div style="margin-top: 10px;">
+        Perímetro:
+        <span class="caixinha-resposta">
+            <input type="text" id="respBU" placeholder="?" inputmode="numeric" aria-label="Resposta do perímetro em centímetros">
+            <span class="unidade">cm</span>
+            <button class="btn-conferir" onclick="conferirResposta('respBU','16','fbBU','Conte TODOS os lados externos da figura em U. Cada quadradinho vale 1 cm. Quantos lados tem o contorno?')">Conferir</button>
+        </span>
+    </div>
+    <div id="fbBU" class="feedback-treino"></div>
+
+</li>
+
+    <li style="margin-bottom: 12px;">
+        Altura de um adulto (entre 150 cm e 200 cm)
+        <span class="caixinha-resposta">
+            <input type="text" id="respB2" placeholder="?" inputmode="numeric" aria-label="Resposta em centímetros">
+            <span class="unidade">cm</span>
+            <button class="btn-conferir" onclick="conferirResposta('respB2','175','fbB2','Use o ponto médio: (150 + 200) ÷ 2 = ?')">Conferir</button>
+        </span>
+        <div id="fbB2" class="feedback-treino"></div>
+        <div class="resposta">175 cm</div>
+    </li>
+
+    <li style="margin-bottom: 12px;">
+        3,6 cm em mm
+        <span class="caixinha-resposta">
+            <input type="text" id="respB3" placeholder="?" inputmode="numeric" aria-label="Resposta em milímetros">
+            <span class="unidade">mm</span>
+            <button class="btn-conferir" onclick="conferirResposta('respB3','36','fbB3','Lembra: 1 cm = 10 mm. Então 3,6 × 10 = ?')">Conferir</button>
+        </span>
+        <div id="fbB3" class="feedback-treino"></div>
+        <div class="resposta">36 mm</div>
+    </li>
+
+    <li style="margin-bottom: 12px;">
+        25% de R$ 480,00
+        <span class="caixinha-resposta">
+            <span class="unidade">R$</span>
+            <input type="text" id="respB4" placeholder="?" inputmode="numeric" aria-label="Resposta em reais">
+            <button class="btn-conferir" onclick="conferirResposta('respB4','120','fbB4','Lembra: 25% = 1/4. Divida 480 por 4.')">Conferir</button>
+        </span>
+        <div id="fbB4" class="feedback-treino"></div>
+        <div class="resposta">R$ 120,00</div>
+    </li>
+</ol>
+    </div>
+</section>
     <!-- EXTRA -->
+     <section class="tela ativa" data-tela="5">
     <div class="block">
         <h2>✨ Extra: Malha Interativa Livre (Crie sua Figura)</h2>
         <div class="canvas-container">
@@ -484,6 +759,17 @@
             <div id="infoLivreB">Clique nos quadrados para começar a desenhar.</div>
         </div>
     </div>
+</section>
+
+<!-- LINHA DIVISÓRIA -->
+<hr style="border: 1px solid #ccc; margin: 20px 0;">
+
+<nav class="nav-telas">
+    <button class="btn-nav btn-anterior" onclick="irTela(-1)" aria-label="Tela anterior">◀ Anterior</button>
+    <span class="indicador indicador-tela">Tela 1 de 5</span>
+    <button class="btn-nav btn-proximo" onclick="irTela(1)" aria-label="Próxima tela">Próximo ▶</button>
+</nav>
+
 
     <!-- ===== MODAL DE IMAGEM ===== -->
 <div id="modalImagem" class="modal">
@@ -532,17 +818,137 @@
 </div>
 
 <script>
+// =====================================================================
+// 🧭 NAVEGAÇÃO ENTRE TELAS (blocos)
+// =====================================================================
+let telaAtual = 0;
+
+function telasVisiveis() {
+    return document.querySelectorAll('.tela');
+}
+
+function mostrarTela(indice) {
+    const telas = telasVisiveis();
+    if (!telas.length) return;
+    telaAtual = Math.max(0, Math.min(telas.length - 1, indice));
+
+    telas.forEach((t, i) => t.classList.toggle('ativa', i === telaAtual));
+
+    // Atualiza TODOS os indicadores (topo e rodapé)
+    document.querySelectorAll('.indicador-tela').forEach(el => {
+        el.textContent = `Tela ${telaAtual + 1} de ${telas.length}`;
+    });
+
+    // Habilita/desabilita TODOS os botões "Anterior"
+    document.querySelectorAll('.btn-anterior').forEach(btn => {
+        btn.disabled = (telaAtual === 0);
+    });
+
+    // Habilita/desabilita TODOS os botões "Próximo"
+    document.querySelectorAll('.btn-proximo').forEach(btn => {
+        btn.disabled = (telaAtual === telas.length - 1);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function irTela(delta) {
+    mostrarTela(telaAtual + delta);
+}
+
+// Inicializa na primeira tela quando o DOM carregar
+document.addEventListener('DOMContentLoaded', function () {
+    mostrarTela(0);
+});
+
+// =====================================================================
+// ✏️ TREINO EM DUPLA — Caixinha de resposta com feedback
+// =====================================================================
+function conferirResposta(inputId, respostaCorreta, feedbackId, dicaErro) {
+    const input = document.getElementById(inputId);
+    const fb = document.getElementById(feedbackId);
+    if (!input || !fb) return;
+
+    // Normaliza: tira R$, "reais", espaços, unidade no fim, vírgula → ponto
+    let valor = input.value.trim()
+        .replace(/R\$/gi, '')
+        .replace(/reais/gi, '')
+        .replace(/\s/g, '')
+        .replace(/\./g, '.')      // mantém ponto
+        .replace(',', '.')        // vírgula vira ponto
+        .replace(/(cm|mm|km|m)$/i, '');
+
+    const numAluno = parseFloat(valor);
+    const numCorreto = parseFloat(String(respostaCorreta).replace(',', '.'));
+
+    input.classList.remove('correto', 'errado');
+    fb.classList.remove('ok', 'erro', 'visible');
+
+    if (!isNaN(numAluno) && Math.abs(numAluno - numCorreto) < 0.01) {
+        // ✅ ACERTOU
+        input.classList.add('correto');
+        fb.classList.add('ok', 'visible');
+        fb.innerHTML = '🎉 <strong>Isso!</strong> Resposta certa.';
+        tocarSomSucesso();
+    } else {
+        // ❌ ERROU → dica específica
+        input.classList.add('errado');
+        fb.classList.add('erro', 'visible');
+        fb.innerHTML = '💡 <strong>Quase!</strong> ' + dicaErro;
+        setTimeout(() => input.classList.remove('errado'), 500);
+    }
+}
+
+function tocarSomSucesso() {
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        // 3 notas ascendentes: Dó5, Mi5, Sol5 (arpejo alegre, curto e suave)
+        const notas = [523.25, 659.25, 783.99];
+        notas.forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            const t = ctx.currentTime + i * 0.1;
+            gain.gain.setValueAtTime(0.12, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.3);
+        });
+    } catch (e) {
+        // Navegador sem Web Audio: silencioso
+    }
+}
+
+// Enter também confirma
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.caixinha-resposta input').forEach(inp => {
+        inp.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const btn = this.parentElement.querySelector('.btn-conferir');
+                if (btn) btn.click();
+            }
+        });
+    });
+});
 let contagemEmAndamento = false;
 var quadradoRotacionado = false;
 
 function desabilitarBotoesMalhaB(desabilitar) {
-    const container = document.querySelector('.exemplo-box:has(#meuCanvasB)');
+    const canvas = document.getElementById('meuCanvasB');
+    if (!canvas) return;
+    const container = canvas.closest('.canvas-container');
     if (!container) return;
-    const botoes = container.querySelectorAll('.canvas-controls button');
-    botoes.forEach(btn => {
+    container.querySelectorAll('.canvas-controls button').forEach(btn => {
         btn.disabled = desabilitar;
+        btn.style.opacity = desabilitar ? '0.55' : '';
+        btn.style.cursor = desabilitar ? 'not-allowed' : '';
     });
 }
+   
 // =====================================================================
 // 1. FUNÇÕES GERAIS
 // =====================================================================
@@ -1445,61 +1851,9 @@ function desenharBaseU() {
         ctx.lineTo(p.x2, p.y2);
         ctx.stroke();
     }
-    document.getElementById('infoU').textContent = "Figura U desenhada. Clique em 'Contar Perímetro'.";
+    document.getElementById('infoU').textContent = "Conte os lados e escreva o perímetro abaixo. 👇";
 }
 
-function animarFiguraU() {
-    // Cancela animação anterior
-    if (intervalU) {
-        clearInterval(intervalU);
-        intervalU = null;
-    }
-    // Redesenha a base (figura + malha)
-    desenharBaseU();
-    const canvas = document.getElementById('canvasU');
-    const ctx = canvas.getContext('2d');
-    const info = document.getElementById('infoU');
-    // Usa vermelho para destacar a contagem
-    ctx.strokeStyle = '#d32f2f';
-    ctx.lineWidth = 4;
-    indexU = 0;
-    info.textContent = "Contando os lados...";
-    intervalU = setInterval(function() {
-        if (indexU < passosU.length) {
-            const p = passosU[indexU];
-            // Desenha o lado em vermelho
-            ctx.beginPath();
-            ctx.moveTo(p.x1, p.y1);
-            ctx.lineTo(p.x2, p.y2);
-            ctx.stroke();
-            // Escreve o número em vermelho
-            ctx.fillStyle = '#d32f2f';
-            ctx.font = 'bold 16px Arial';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            const meioX = (p.x1 + p.x2) / 2;
-            const meioY = (p.y1 + p.y2) / 2;
-            ctx.fillText(indexU + 1, meioX, meioY);
-            info.textContent = "Lado " + (indexU + 1) + " de 16";
-            indexU++;
-        } else {
-            clearInterval(intervalU);
-            intervalU = null;
-            info.textContent = "Perímetro total: 16 cm!";
-        }
-    }, 400);
-}
-
-function resetarFiguraU() {
-    if (intervalU) {
-        clearInterval(intervalU);
-        intervalU = null;
-    }
-    const canvas = document.getElementById('canvasU');
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    document.getElementById('infoU').textContent = "Clique em 'Desenhar U'";
-}
 
 
 // =====================================================================
@@ -1576,12 +1930,18 @@ function limparMalhaLivre(turma) {
 // =====================================================================
 // 10. INICIALIZAÇÃO
 // =====================================================================
+
+
+
+desenharBaseU();   // 👈 desenha a figura U assim que a página carrega
 desenharBase(ctxB, estadoB);
 desenharBaseQ22('canvasQ22B', 'infoQ22B');
 configurarCliques('canvasLivreB', gridB);
 desenharMalhaLivre('canvasLivreB', gridB);
 
 console.log("Turma B carregada com sucesso!");
+
+
 </script>
 </body>
 </html>
