@@ -272,7 +272,7 @@
     <hr style="border: 1px solid #ccc; margin: 20px 0;">
     <div class="subtitulo">
         <span>UNIVESP – Projeto Integrador V</span>
-        <span class="turma">🎯 Turma A <span class="badge">matutino</span></span>
+        <span class="turma">🎯 Turma B <span class="badge">matutino</span></span>
     </div>
 
 <!-- LINHA DIVISÓRIA -->
@@ -318,7 +318,7 @@
 
         <h3>2. Estimativa de Altura (Q12)</h3>
 <div class="exemplo-box">
-    <strong>Entre 100 cm e 200 cm:</strong>
+    <strong>Entre 140 cm e 170 cm:</strong>
     <button class="btn-imagem" onclick="abrirModal('Q12')" aria-label="Ver imagem da questão">🖼️ Ver Questão</button>
     <button class="btn-revelar" aria-label="Mostrar animação da altura" onclick="toggleResposta(this); setTimeout(function(){ desenharBaseAltura(); }, 50);">▶ Animação</button>
     <button class="btn-dica" aria-label="Mostrar dica" onclick="toggleDica(this)">💡 Dica</button>
@@ -333,7 +333,7 @@
             <div id="infoQ12">Clique em "Reproduzir" para ver a estimativa.</div>
         </div>
         <div style="font-size:1.2rem; margin-top:10px; text-align:center;">
-            \((200 + 100) \div 2 = \mathbf{150 \text{ cm}}\)
+            \((170 + 140) \div 2 = \mathbf{155 \text{ cm}}\)
         </div>
     </div>
 </div>
@@ -716,17 +716,17 @@ function desenharRégua(ctx, t = 0) {
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
 
-    for (let v = 0; v <= 200; v += 10) {
-        const frac = v / 200;
+    for (let v = 0; v <= 170; v += 10) {
+        const frac = v / 170;
         const y = yBottom - frac * heightRuler;
         ctx.beginPath();
         ctx.moveTo(xRuler, y);
         
         // Traço maior para múltiplos de 20, 100 e 200
-        if (v % 20 === 0 || v === 100 || v === 200 || v === 0) {
+        if (v % 20 === 0 || v === 140 || v === 170 || v === 0) {
             ctx.lineTo(xRuler + 15, y);
             ctx.font = 'bold 12px Arial';
-            if (v === 100 || v === 200) {
+            if (v === 140 || v === 170) {
                 ctx.fillStyle = '#003366';
             } else {
                 ctx.fillStyle = '#333';
@@ -745,23 +745,23 @@ function desenharRégua(ctx, t = 0) {
     }
 
     // Destaque para 100 e 200
-    const y100 = yBottom - (100/200) * heightRuler;
-    const y200 = yTop;
+    const y140 = yBottom - (140/170) * heightRuler;
+    const y170 = yBottom - (170/170) * heightRuler;
     ctx.fillStyle = '#003366';
     ctx.font = 'bold 14px Arial';
     ctx.textAlign = 'left';
-    ctx.fillText('▼ 100 cm', xRuler + 35, y100);
-    ctx.fillText('▼ 200 cm', xRuler + 35, y200);
+    ctx.fillText('▼ 140 cm', xRuler + 35, y140);
+    ctx.fillText('▼ 170 cm', xRuler + 35, y170);
 
     // Título
     ctx.fillStyle = '#003366';
     ctx.font = 'bold 16px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText('Estimativa de Altura (entre 100 e 200 cm)', canvasQ12.width / 2, 10);
+    ctx.fillText('Estimativa de Altura (entre 140 e 170 cm)', canvasQ12.width / 2, 10);
 
-    // Marca especial para 150 (ponto médio) - aparece no final da animação
-    const yMid = yBottom - (150/200) * heightRuler;
+    // Marca especial para 155 (ponto médio) - aparece no final da animação
+    const yMid = yBottom - (155/170) * heightRuler;
     if (t > 0.8) {
         const alpha = Math.min(1, (t - 0.8) * 10);
         ctx.globalAlpha = alpha;
@@ -778,14 +778,14 @@ function desenharRégua(ctx, t = 0) {
         ctx.font = 'bold 16px Arial';
         ctx.fillText('▶', xRuler + 35, yMid - 8);
 
-        ctx.fillText('150 cm (ponto médio)', xRuler + 50, yMid - 18);
+        ctx.fillText('155 cm (ponto médio)', xRuler + 50, yMid - 18);
         ctx.globalAlpha = 1.0;
     }
 }
 function desenharPersonagem(ctx, x, yPes) {
     // yPes = posição dos pés (0 cm) = yBottom
-    // Altura total do boneco = 150 cm = (150/200) * heightRuler
-    const alturaBonecoPixels = (150 / 200) * heightRuler - 20;
+    // Altura total do boneco = 155 cm = (155/170) * heightRuler
+    const alturaBonecoPixels = (155 / 170) * heightRuler-20;
 
     // Escala baseada no boneco original (60px de altura)
     const escala = alturaBonecoPixels / 60;
@@ -859,8 +859,8 @@ function desenharTextosEducativos(ctx, t) {
         ctx.fillStyle = '#555';
         ctx.font = '15px Arial';
         ctx.fillText('Extremos conhecidos:', xText, 110);
-        ctx.fillText('• Altura Mínima: 100 cm', xText, 140);
-        ctx.fillText('• Altura Máxima: 200 cm', xText, 170);
+        ctx.fillText('• Altura Mínima: 140 cm', xText, 140);
+        ctx.fillText('• Altura Máxima: 170 cm', xText, 170);
     }
 
     if (t > 0.3) {
@@ -873,15 +873,15 @@ function desenharTextosEducativos(ctx, t) {
     if (t > 0.45) {
         ctx.fillStyle = '#e67e22';
         ctx.font = 'bold 16px Arial';
-        ctx.fillText('= (100 + 200) ÷ 2', xText, 290);
-        ctx.fillText('= 300 ÷ 2', xText, 320);
+        ctx.fillText('= (140 + 170) ÷ 2', xText, 290);
+        ctx.fillText('= 310 ÷ 2', xText, 320);
     }
 
     if (t > 0.8) {
         ctx.fillStyle = '#d32f2f';
         ctx.font = 'bold 20px Arial';
-        const yMid = yBottom - (150/200) * heightRuler;
-        ctx.fillText('➡ Média = 150 cm', xText, yMid + 220);
+        const yMid = yBottom - (155/170) * heightRuler;
+        ctx.fillText('➡ Média = 155 cm', xText, yMid + 280);
     }
 }
 
@@ -901,13 +901,13 @@ function frameAnimacao(timestamp) {
     desenharPersonagem(ctx, xPersonagem, yPes);
 
     if (t < 0.3) {
-        info.textContent = 'Avaliando os limites: 100 cm e 200 cm...';
+        info.textContent = 'Avaliando os limites: 140 cm e 170 cm...';
     } else if (t < 0.6) {
         info.textContent = 'A média é a soma dividida por 2...';
     } else if (t < 0.8) {
         info.textContent = 'Encontrando o ponto médio...';
     } else {
-        info.textContent = '✅ A altura média estimada é 150 cm!';
+        info.textContent = '✅ A altura média estimada é 155 cm!';
     }
 
     if (t < 1) {
@@ -1125,8 +1125,8 @@ function resetarLupaQ22B() {
 // 5. QUADRADO (Q21)
 // =====================================================================
 function resetarQuadradoQ21(turma) {
-    var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
-    var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
+    var canvasId = turma === 'B' ? 'canvasQ21' : 'canvasQ21B';
+    var infoId = turma === 'B' ? 'infoQ21' : 'infoQ21B';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     var info = document.getElementById(infoId);
@@ -1164,8 +1164,8 @@ function resetarQuadradoQ21(turma) {
 }
 
 function girarQuadradoQ21(turma) {
-    var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
-    var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
+    var canvasId = turma === 'B' ? 'canvasQ21' : 'canvasQ21B';
+    var infoId = turma === 'B' ? 'infoQ21' : 'infoQ21B';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     var info = document.getElementById(infoId);
@@ -1254,8 +1254,8 @@ function desenharBarraTotal(ctx, canvas) {
 }
 
 function animarTeoriaPorc(turma, porcentagem) {
-    var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
-    var infoId = turma === 'A' ? 'infoTeoriaPorcA' : 'infoTeoriaPorcB';
+    var canvasId = turma === 'B' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
+    var infoId = turma === 'B' ? 'infoTeoriaPorcA' : 'infoTeoriaPorcB';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     var info = document.getElementById(infoId);
@@ -1288,7 +1288,7 @@ function animarTeoriaPorc(turma, porcentagem) {
 }
 
 function resetarTeoriaPorc(turma) {
-    var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
+    var canvasId = turma === 'B' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     desenharBarraTotal(ctx, canvas);
