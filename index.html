@@ -1125,8 +1125,8 @@ function resetarLupaQ22B() {
 // 5. QUADRADO (Q21)
 // =====================================================================
 function resetarQuadradoQ21(turma) {
-    var canvasId = turma === 'B' ? 'canvasQ21' : 'canvasQ21B';
-    var infoId = turma === 'B' ? 'infoQ21' : 'infoQ21B';
+    var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
+    var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     var info = document.getElementById(infoId);
@@ -1164,8 +1164,8 @@ function resetarQuadradoQ21(turma) {
 }
 
 function girarQuadradoQ21(turma) {
-    var canvasId = turma === 'B' ? 'canvasQ21' : 'canvasQ21B';
-    var infoId = turma === 'B' ? 'infoQ21' : 'infoQ21B';
+    var canvasId = turma === 'A' ? 'canvasQ21' : 'canvasQ21B';
+    var infoId = turma === 'A' ? 'infoQ21' : 'infoQ21B';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     var info = document.getElementById(infoId);
@@ -1254,8 +1254,8 @@ function desenharBarraTotal(ctx, canvas) {
 }
 
 function animarTeoriaPorc(turma, porcentagem) {
-    var canvasId = turma === 'B' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
-    var infoId = turma === 'B' ? 'infoTeoriaPorcA' : 'infoTeoriaPorcB';
+    var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
+    var infoId = turma === 'A' ? 'infoTeoriaPorcA' : 'infoTeoriaPorcB';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     var info = document.getElementById(infoId);
@@ -1288,7 +1288,7 @@ function animarTeoriaPorc(turma, porcentagem) {
 }
 
 function resetarTeoriaPorc(turma) {
-    var canvasId = turma === 'B' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
+    var canvasId = turma === 'A' ? 'canvasTeoriaPorcA' : 'canvasTeoriaPorcB';
     var canvas = document.getElementById(canvasId);
     var ctx = canvas.getContext('2d');
     desenharBarraTotal(ctx, canvas);
