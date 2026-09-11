@@ -488,6 +488,283 @@ body { font-size: 17px; }
     pointer-events: none;
     filter: grayscale(0.3);
 }
+
+/* ===== TELA FINAL COM REVELAÇÃO ===== */
+.tela-final {
+    background: linear-gradient(135deg, #eef4fa 0%, #e3f2fd 100%);
+    border-left-color: #003366;
+}
+
+.tela-final h2 {
+    font-size: 1.4rem;
+    color: #003366;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.bloco-final,
+.revelacao-passo {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    border-left: 5px solid #0077be;
+    box-shadow: 0 2px 6px rgba(0, 51, 102, 0.06);
+}
+
+.bloco-final h3,
+.revelacao-passo h3 {
+    color: #003366;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.bloco-final p,
+.revelacao-passo p {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Blocos de revelação começam invisíveis e "abaixo" */
+.revelacao-passo {
+    opacity: 0;
+    transform: translateY(14px);
+    display: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.revelacao-passo.visivel {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Botões no final */
+.controles-finais {
+    text-align: center;
+    margin-top: 22px;
+}
+
+.btn-continuar,
+.btn-voltar-inicio {
+    border: none;
+    padding: 14px 28px;
+    border-radius: 28px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.05rem;
+    transition: 0.2s;
+    min-height: 48px;
+    margin: 6px;
+}
+
+.btn-continuar {
+    background: #007bff;
+    color: white;
+}
+
+.btn-continuar:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-voltar-inicio {
+    background: #28a745;
+    color: white;
+    display: none; /* só aparece no fim */
+}
+
+.btn-voltar-inicio:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-voltar-inicio.visivel {
+    display: inline-block;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .tela-final h2 { font-size: 1.15rem; }
+    .bloco-final h3,
+    .revelacao-passo h3 { font-size: 1rem; }
+    .bloco-final p,
+    .revelacao-passo p { font-size: 0.95rem; }
+    .btn-continuar,
+    .btn-voltar-inicio { font-size: 0.95rem; padding: 12px 22px; }
+}
+
+/* ===== TELA FINAL ANIMADA E DIVERTIDA ===== */
+.tela-final {
+    background: linear-gradient(135deg, #a8d8ff 0%, #c8e8ff 50%, #ffe4b5 100%);
+    position: relative;
+    overflow: hidden;
+    border-left: 6px solid #ff6b9d;
+    padding: 25px 20px 30px;
+}
+
+.tela-final h2 {
+    font-size: 1.6rem;
+    color: #d6336c;
+    text-align: center;
+    margin-bottom: 18px;
+    animation: balancaTitulo 2s ease-in-out infinite;
+}
+@keyframes balancaTitulo {
+    0%, 100% { transform: rotate(-1deg) scale(1); }
+    50%      { transform: rotate(1deg) scale(1.03); }
+}
+
+/* Bloco de boas-vindas */
+.bloco-final {
+    background: linear-gradient(135deg, #ffd1dc 0%, #ffe4b5 100%);
+    border-left: 6px solid #ff6b9d;
+    text-align: center;
+}
+.bloco-final h3 { font-size: 1.3rem; color: #d6336c; }
+.bloco-final p  { font-size: 1.05rem; }
+
+/* Bolinhas de progresso */
+.progresso-final {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0 10px;
+}
+.progresso-final .dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    border: 3px solid #ffb347;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.progresso-final .dot.ativo {
+    background: #ffb347;
+    transform: scale(1.3);
+    box-shadow: 0 0 15px #ffb347, 0 0 25px rgba(255, 179, 71, 0.6);
+}
+
+/* Cartões de revelação com entrada "elástica" */
+.revelacao-passo {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+    display: none;
+    border-left: 6px solid #ffb347;
+    background: linear-gradient(135deg, #ffffff 0%, #fff8e1 100%);
+    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+.revelacao-passo.visivel {
+    display: block;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    animation: brilhaCard 0.8s ease-out;
+}
+@keyframes brilhaCard {
+    0%   { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.9); }
+    50%  { box-shadow: 0 0 25px 10px rgba(255, 215, 0, 0.5); }
+    100% { box-shadow: 0 2px 6px rgba(0, 51, 102, 0.06); }
+}
+
+.revelacao-passo h3 {
+    font-size: 1.25rem;
+    color: #d6336c;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 800;
+}
+.revelacao-passo p {
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Emoji gigante que pula */
+.emoji-grande {
+    font-size: 4rem;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+    animation: pulaEmoji 1.4s ease-in-out infinite;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
+@keyframes pulaEmoji {
+    0%, 100% { transform: translateY(0) scale(1); }
+    30%      { transform: translateY(-12px) scale(1.08); }
+    50%      { transform: translateY(0) scale(0.98); }
+    70%      { transform: translateY(-5px) scale(1.03); }
+}
+
+/* Botões estilo "arcade" */
+.btn-continuar {
+    background: linear-gradient(135deg, #ff6b9d 0%, #ffb347 100%) !important;
+    font-size: 1.15rem !important;
+    padding: 16px 34px !important;
+    box-shadow: 0 6px 0 #c44a76, 0 8px 15px rgba(0,0,0,0.2);
+    animation: pulsaBotao 1.5s ease-in-out infinite;
+}
+.btn-continuar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #c44a76, 0 12px 20px rgba(0,0,0,0.25);
+}
+.btn-continuar:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 #c44a76, 0 4px 8px rgba(0,0,0,0.2);
+}
+@keyframes pulsaBotao {
+    0%, 100% {
+        box-shadow: 0 6px 0 #c44a76, 0 8px 15px rgba(0,0,0,0.2),
+                    0 0 0 0 rgba(255, 107, 157, 0.7);
+    }
+    50% {
+        box-shadow: 0 6px 0 #c44a76, 0 8px 15px rgba(0,0,0,0.2),
+                    0 0 0 15px rgba(255, 107, 157, 0);
+    }
+}
+
+.btn-voltar-inicio {
+    background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%) !important;
+    box-shadow: 0 6px 0 #2e7d32, 0 8px 15px rgba(0,0,0,0.2);
+}
+.btn-voltar-inicio:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #2e7d32, 0 12px 20px rgba(0,0,0,0.25);
+}
+
+/* Confete */
+.confete {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    animation-name: cairConfete;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+@keyframes cairConfete {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(105vh) rotate(720deg);
+        opacity: 0.3;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .tela-final h2 { font-size: 1.25rem; }
+    .emoji-grande  { font-size: 3rem; }
+    .revelacao-passo h3 { font-size: 1.05rem; }
+    .revelacao-passo p  { font-size: 0.95rem; }
+    .btn-continuar  { font-size: 1rem !important; padding: 14px 26px !important; }
+}
     </style>
 </head>
 <body>
@@ -780,6 +1057,59 @@ body { font-size: 17px; }
     </div>
 </section>
 
+<!-- ===== TELA 6: RECADO FINAL ===== -->
+<section class="tela" data-tela="6">
+    <div class="block tela-final">
+        <h2>🎉 Recado Final 🎉</h2>
+
+        <div class="bloco-final">
+            <h3>E aí crianças! 👋</h3>
+            <p>Vocês chegaram até aqui e isso já mostra que vocês são demais!</p>
+            <p>Espero que tenham curtido nossa viagem pela matemática. 💙</p>
+        </div>
+
+        <div class="progresso-final">
+            <span class="dot" data-dot="1"></span>
+            <span class="dot" data-dot="2"></span>
+            <span class="dot" data-dot="3"></span>
+            <span class="dot" data-dot="4"></span>
+        </div>
+
+        <div class="revelacao-passo" data-passo="1">
+            <div class="emoji-grande">🧠</div>
+            <h3>Errar é o superpoder do cérebro!</h3>
+            <p>Cada vez que erramos e tentamos de novo, nosso cérebro fica</p>
+             <p><strong>mais forte que músculo de herói</strong>! 💪</p>
+        </div>
+
+        <div class="revelacao-passo" data-passo="2">
+            <div class="emoji-grande">🎮</div>
+            <h3>A matemática é tipo um videogame!</h3>
+            <p>Cada desafio vencido = <strong>+1 nível!</strong></p>
+             <p> E olha... você já passou de fase VÁRIAS vezes hoje! 🚀</p>
+        </div>
+
+        <div class="revelacao-passo" data-passo="3">
+            <div class="emoji-grande">🔍</div>
+            <h3>O mundo tá cheio de segredos!</h3>
+            <p>Números, formas e enigmas escondidos em TODO lugar.</p>
+            <p>   Você só precisa olhar com <strong>olhos de detetive</strong>! 🕵️</p>
+        </div>
+
+        <div class="revelacao-passo" data-passo="4">
+            <div class="emoji-grande">🤝</div>
+            <h3>Os números são seus melhores amigos!</h3>
+            <p>Eles estão sempre do seu lado, prontos pra te ajudar a resolver</p>
+             <p>  <strong>qualquer mistério</strong>. Continue treinando! ⭐</p>
+        </div>
+
+        <div class="controles-finais">
+            <button class="btn-continuar" onclick="revelarProximo()">Continuar ▶</button>
+            <button class="btn-voltar-inicio" onclick="voltarAoInicio()">🏠 Voltar ao início</button>
+        </div>
+    </div>
+</section>
+
 <!-- LINHA DIVISÓRIA -->
 <hr style="border: 1px solid #ccc; margin: 20px 0;">
 
@@ -851,6 +1181,11 @@ function mostrarTela(indice) {
     if (!telas.length) return;
     telaAtual = Math.max(0, Math.min(telas.length - 1, indice));
 
+     // 👇 Zera a revelação sempre que mudar de tela
+    if (typeof resetarTelaFinal === 'function') resetarTelaFinal();
+
+
+
     telas.forEach((t, i) => t.classList.toggle('ativa', i === telaAtual));
 
     // Atualiza TODOS os indicadores (topo e rodapé)
@@ -875,10 +1210,103 @@ function irTela(delta) {
     mostrarTela(telaAtual + delta);
 }
 
-// Inicializa na primeira tela quando o DOM carregar
-document.addEventListener('DOMContentLoaded', function () {
+// =====================================================================
+// 🎁 TELA 6 — Revelação animada com confete!
+// =====================================================================
+let passoRevelacao = 0;
+
+function revelarProximo() {
+    const tela6 = document.querySelector('.tela[data-tela="6"]');
+    if (!tela6) return;
+
+    const passos       = tela6.querySelectorAll('.revelacao-passo');
+    const dots         = tela6.querySelectorAll('.progresso-final .dot');
+    const btnContinuar = tela6.querySelector('.btn-continuar');
+    const btnVoltar    = tela6.querySelector('.btn-voltar-inicio');
+
+    if (passoRevelacao < passos.length) {
+        passos[passoRevelacao].classList.add('visivel');
+        if (dots[passoRevelacao]) dots[passoRevelacao].classList.add('ativo');
+        passoRevelacao++;
+
+        // 🎵 Som de vitória
+        if (typeof tocarSomSucesso === 'function') tocarSomSucesso();
+
+        // 🎊 Confete!
+        soltarConfete(35);
+
+        // Rolagem suave
+        passos[passoRevelacao - 1].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
+        // Muda o texto do botão para ficar mais divertido
+        const textos = ['Bora! ▶', 'Mais uma! ▶', 'Última! ▶'];
+        if (passoRevelacao < passos.length) {
+            btnContinuar.textContent = textos[passoRevelacao - 1] || 'Continuar ▶';
+        }
+
+        // Acabaram os passos → festa final!
+        if (passoRevelacao === passos.length) {
+            btnContinuar.style.display = 'none';
+            btnVoltar.classList.add('visivel');
+            setTimeout(() => soltarConfete(90), 350);
+        }
+    }
+}
+
+function soltarConfete(quantidade) {
+    const cores = ['#ff6b9d', '#ffb347', '#4caf50', '#42a5f5',
+                   '#ab47bc', '#ffeb3b', '#ff5722', '#26c6da'];
+
+    for (let i = 0; i < quantidade; i++) {
+        const confete = document.createElement('div');
+        confete.className = 'confete';
+        confete.style.left = Math.random() * 100 + 'vw';
+        confete.style.top  = '-20px';
+        confete.style.background = cores[Math.floor(Math.random() * cores.length)];
+        confete.style.animationDuration = (2 + Math.random() * 2) + 's';
+        confete.style.animationDelay    = (Math.random() * 0.5) + 's';
+
+        const w = 8 + Math.random() * 8;
+        const h = 8 + Math.random() * 8;
+        confete.style.width  = w + 'px';
+        confete.style.height = h + 'px';
+
+        // Formas variadas
+        const formas = ['50%', '2px', '20% 80% 20% 80%', '0'];
+        confete.style.borderRadius = formas[Math.floor(Math.random() * formas.length)];
+
+        document.body.appendChild(confete);
+        setTimeout(() => confete.remove(), 5000);
+    }
+}
+
+function voltarAoInicio() {
+    resetarTelaFinal();
     mostrarTela(0);
-});
+}
+
+function resetarTelaFinal() {
+    passoRevelacao = 0;
+    const tela6 = document.querySelector('.tela[data-tela="6"]');
+    if (!tela6) return;
+
+    const passos       = tela6.querySelectorAll('.revelacao-passo');
+    const dots         = tela6.querySelectorAll('.progresso-final .dot');
+    const btnContinuar = tela6.querySelector('.btn-continuar');
+    const btnVoltar    = tela6.querySelector('.btn-voltar-inicio');
+
+    passos.forEach(p => p.classList.remove('visivel'));
+    dots.forEach(d => d.classList.remove('ativo'));
+
+    if (btnContinuar) {
+        btnContinuar.style.display = 'inline-block';
+        btnContinuar.textContent = 'Continuar ▶';
+    }
+    if (btnVoltar) btnVoltar.classList.remove('visivel');
+}
 
 // =====================================================================
 // ✏️ TREINO EM DUPLA — Caixinha de resposta com feedback
